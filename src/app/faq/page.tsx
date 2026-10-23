@@ -17,7 +17,7 @@ export default function FaqPage() {
       />
       <section className="section-space">
         <div className="shell faq-layout">
-          <div className="faq-intro"><span className="eyebrow">Questions fréquentes</span><h2>En toute clarté<span className="dot">.</span></h2><p>Frandeley est en préparation. Les détails du pilote évolueront avec les premiers retours.</p></div>
+          <div className="faq-intro"><span className="eyebrow">Questions fréquentes</span><h2>En toute clarté<span className="dot">.</span></h2><p>Frandeley est en préparation. Les détails du pilote évolueront avec les premiers retours. Les informations de conservation et l’option e-mail sont précisées dans la politique de confidentialité.</p></div>
           <div className="faq-list">
             {faq.map((item, index) => (
               <details key={item.question} className="faq-item">
