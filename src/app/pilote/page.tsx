@@ -1,11 +1,12 @@
 import { InnerHero } from "@/components/inner-hero";
 import { PilotForm } from "@/components/pilot-form";
+import { isMailchimpConfigured } from "@/lib/mailchimp";
 import { pageMetadata } from "@/lib/page-metadata";
 
 export const metadata = pageMetadata("Rejoindre le pilote", "Artiste indépendant avec un morceau en cours ? Inscrivez-vous à la liste d’intérêt du pilote Frandeley.", "/pilote");
 
-export default async function PilotePage({ searchParams }: { searchParams: Promise<{ status?: string }> }) {
-  const { status } = await searchParams;
+export default async function PilotePage({ searchParams }: { searchParams: Promise<{ status?: string; newsletter?: string }> }) {
+  const { status, newsletter } = await searchParams;
   return (
     <>
       <InnerHero
@@ -42,7 +43,7 @@ export default async function PilotePage({ searchParams }: { searchParams: Promi
             <p>Laissez vos coordonnées et quelques mots sur votre pratique. L’inscription n’engage à rien et ne garantit pas une place. Aucun lancement ni calendrier de sélection n’est annoncé à ce stade.</p>
             <div className="pilot-aside"><span>01</span> Inscription gratuite<br /><span>02</span> Échanges si votre profil correspond<br /><span>03</span> Conditions présentées avant tout test</div>
           </div>
-          <PilotForm variant="standalone" serverStatus={status} />
+          <PilotForm variant="standalone" serverStatus={status} newsletterEnabled={isMailchimpConfigured()} serverNewsletterStatus={newsletter} />
         </div>
       </section>
     </>
