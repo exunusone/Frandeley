@@ -1,6 +1,11 @@
 import type { MetadataRoute } from "next";
+import { siteUrl } from "@/lib/site-config";
 
 export default function robots(): MetadataRoute.Robots {
-  const origin = process.env.NEXT_PUBLIC_SITE_URL || "https://frandeley.example";
-  return { rules: [{ userAgent: "*", disallow: "/" }], sitemap: `${origin}/sitemap.xml` };
+  const isProduction = process.env.VERCEL_ENV === "production";
+  const rules = isProduction
+    ? [{ userAgent: "*", allow: "/" }]
+    : [{ userAgent: "*", disallow: "/" }];
+
+  return { rules, sitemap: `${siteUrl}/sitemap.xml` };
 }

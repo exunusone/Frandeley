@@ -16,14 +16,22 @@ export const steps = [
   },
   {
     number: "02",
-    title: "Partager",
+    title: "Créer",
     description:
-      "Une démo et la bonne version pour recueillir des retours utiles, sans perdre le contexte du morceau.",
+      "Les prises, paroles et notes restent liées au morceau pour retrouver son évolution et choisir la bonne version.",
     image: "/images/partager.webp",
     alt: "Artiste organisant les versions audio de son morceau sur ordinateur",
   },
   {
     number: "03",
+    title: "Écouter",
+    description:
+      "Une démo se partage avec les bonnes personnes et les retours restent associés à la version entendue.",
+    image: "/images/mobile-web.webp",
+    alt: "Téléphone et ordinateur montrant le même projet musical",
+  },
+  {
+    number: "04",
     title: "Préparer",
     description:
       "Crédits, fichiers et prochaines étapes se rassemblent avant de décider comment sortir le morceau.",

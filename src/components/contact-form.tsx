@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import Link from "next/link";
 
 export function ContactForm({ serverStatus }: { serverStatus?: string }) {
   const [state, setState] = useState<"idle" | "loading" | "success" | "error">(serverStatus === "envoye" ? "success" : serverStatus ? "error" : "idle");
@@ -64,10 +65,10 @@ export function ContactForm({ serverStatus }: { serverStatus?: string }) {
       </div>
       <div className="field"><label htmlFor="contact-message">Votre message *</label><textarea id="contact-message" name="message" rows={6} minLength={10} maxLength={3000} required placeholder="Votre message…" /></div>
       <div className="trap" aria-hidden="true"><label htmlFor="contact-website">Site web</label><input id="contact-website" name="website" tabIndex={-1} autoComplete="off" /></div>
-      <label className="check-row">
-        <input name="consent" type="checkbox" required />
-        <span>J’accepte que ces informations soient traitées pour répondre à ma demande, selon la <a href="/confidentialite">politique de confidentialité</a>. *</span>
-      </label>
+      <div className="check-row">
+        <input id="contact-consent" name="consent" type="checkbox" required />
+        <span className="check-copy"><label htmlFor="contact-consent">J’accepte que ces informations soient traitées pour répondre à ma demande, selon la </label><Link href="/confidentialite">politique de confidentialité</Link>. *</span>
+      </div>
       {state === "error" && <p className="form-error" role="alert">{error}</p>}
       <button type="submit" className="button form-submit" disabled={state === "loading"}>{state === "loading" ? "Envoi…" : "Envoyer le message"} <span aria-hidden="true">↗</span></button>
     </form>

@@ -1,12 +1,9 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import { InnerHero } from "@/components/inner-hero";
 import { SectionCta } from "@/components/section-cta";
+import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
-  title: "La vision",
-  description: "Frandeley explore un fil continu pour les artistes indépendants : de la première idée au morceau prêt à être partagé.",
-};
+export const metadata = pageMetadata("La vision", "Frandeley explore un fil continu pour les artistes indépendants : de la première idée au morceau prêt à être partagé.", "/vision");
 
 export default function VisionPage() {
   return (

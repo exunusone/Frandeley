@@ -1,12 +1,9 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import { InnerHero } from "@/components/inner-hero";
 import { SectionCta } from "@/components/section-cta";
+import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
-  title: "Le parcours du morceau",
-  description: "Capturer, créer, partager, préparer : découvrez le parcours que Frandeley souhaite tester avec les artistes.",
-};
+export const metadata = pageMetadata("Le parcours du morceau", "Capturer, créer, écouter, préparer : découvrez les quatre moments que Frandeley souhaite tester avec les artistes.", "/parcours");
 
 const chapters = [
   {

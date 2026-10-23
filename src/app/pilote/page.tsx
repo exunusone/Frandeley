@@ -1,11 +1,8 @@
-import type { Metadata } from "next";
 import { InnerHero } from "@/components/inner-hero";
 import { PilotForm } from "@/components/pilot-form";
+import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
-  title: "Rejoindre le pilote",
-  description: "Artiste indépendant avec un morceau en cours ? Inscrivez-vous à la liste d’intérêt du pilote Frandeley.",
-};
+export const metadata = pageMetadata("Rejoindre le pilote", "Artiste indépendant avec un morceau en cours ? Inscrivez-vous à la liste d’intérêt du pilote Frandeley.", "/pilote");
 
 export default async function PilotePage({ searchParams }: { searchParams: Promise<{ status?: string }> }) {
   const { status } = await searchParams;

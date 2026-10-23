@@ -42,7 +42,7 @@ export default function HomePage() {
 
       <section className="steps-section section-space">
         <div className="shell">
-          <div className="section-topline"><span>UN MÊME PROJET. TROIS TEMPS.</span><span>01 — 03</span></div>
+          <div className="section-topline"><span>UN MÊME PROJET. QUATRE TEMPS.</span><span>01 — 04</span></div>
           <div className="section-heading-row" data-reveal>
             <h2>Un morceau avance<br />quand tout reste lié<span className="dot">.</span></h2>
             <p>Chaque étape a sa place. Le parcours est pensé pour que l’idée d’aujourd’hui reste utile demain.</p>

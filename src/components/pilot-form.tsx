@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import Link from "next/link";
 
 type FormState = "idle" | "loading" | "success" | "error";
 
@@ -84,10 +85,10 @@ export function PilotForm({ variant = "panel", serverStatus }: { variant?: "pane
         <label htmlFor={`website-${variant}`}>Site web</label>
         <input id={`website-${variant}`} name="website" type="text" tabIndex={-1} autoComplete="off" />
       </div>
-      <label className="check-row">
-        <input type="checkbox" name="consent" required />
-        <span>J’accepte que Frandeley utilise ces informations pour gérer ma demande de participation, selon la <a href="/confidentialite">politique de confidentialité</a>. <b aria-hidden="true">*</b></span>
-      </label>
+      <div className="check-row">
+        <input id={`consent-${variant}`} type="checkbox" name="consent" required />
+        <span className="check-copy"><label htmlFor={`consent-${variant}`}>J’accepte que Frandeley utilise ces informations pour gérer ma demande de participation, selon la </label><Link href="/confidentialite">politique de confidentialité</Link>. <b aria-hidden="true">*</b></span>
+      </div>
       <label className="check-row">
         <input type="checkbox" name="updates" />
         <span>Je souhaite recevoir des nouvelles du projet par e-mail. <em>Facultatif.</em></span>

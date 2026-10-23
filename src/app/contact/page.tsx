@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact-form";
+import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = { title: "Contact", description: "Contactez l’équipe Frandeley au sujet du pilote, d’un partenariat ou de vos données." };
+export const metadata = pageMetadata("Contact", "Contactez l’équipe Frandeley au sujet du pilote, d’un partenariat ou de vos données.", "/contact");
 
 export default async function ContactPage({ searchParams }: { searchParams: Promise<{ status?: string }> }) {
   const { status } = await searchParams;

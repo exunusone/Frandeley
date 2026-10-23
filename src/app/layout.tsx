@@ -3,9 +3,10 @@ import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { RevealProvider } from "@/components/reveal";
+import { siteUrl } from "@/lib/site-config";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://frandeley.example"),
+  metadataBase: new URL(siteUrl),
   title: { default: "Frandeley — Une idée. Un morceau. La suite.", template: "%s | Frandeley" },
   description: "Frandeley prépare un parcours musical pour les artistes indépendants, de la prise sur téléphone à la démo et à la sortie préparée. Rejoignez la liste du pilote.",
   openGraph: {
@@ -14,6 +15,14 @@ export const metadata: Metadata = {
     images: ["/images/hero-session.webp"],
     locale: "fr_FR",
     type: "website",
+    url: "/",
+  },
+  alternates: { canonical: "/" },
+  twitter: {
+    card: "summary_large_image",
+    title: "Frandeley — Une idée. Un morceau. La suite.",
+    description: "Le même projet, du premier enregistrement jusqu’à la revue et à la sortie. Rejoignez le pilote Frandeley.",
+    images: ["/images/hero-session.webp"],
   },
 };
 
