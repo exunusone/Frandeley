@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { InnerHero } from "@/components/inner-hero";
 import { PilotForm } from "@/components/pilot-form";
-import { isBrevoConfigured } from "@/lib/brevo";
+import { isResendConfigured } from "@/lib/resend";
 import { pageMetadata } from "@/lib/page-metadata";
 
 export const metadata = pageMetadata("Rejoindre le pilote", "Artiste indépendant avec un morceau en cours ? Découvrez qui peut contribuer au pilote Frandeley et laissez vos coordonnées.", "/pilote");
@@ -60,7 +60,7 @@ export default async function PilotePage({ searchParams }: { searchParams: Promi
             <div className="pilot-aside"><span>01</span> Inscription gratuite<br /><span>02</span> Échanges si votre profil correspond<br /><span>03</span> Conditions présentées avant tout test</div>
             <p className="pilot-aside-note">Les réponses facultatives nous aident à comprendre où vous en êtes. Vous pouvez aussi consulter la <Link href="/faq">FAQ</Link> ou poser une question depuis la page <Link href="/contact">Contact</Link>.</p>
           </div>
-          <PilotForm variant="standalone" serverStatus={status} newsletterEnabled={isBrevoConfigured()} serverNewsletterStatus={newsletter} />
+          <PilotForm variant="standalone" serverStatus={status} newsletterEnabled={isResendConfigured()} serverNewsletterStatus={newsletter} />
         </div>
       </section>
     </>
