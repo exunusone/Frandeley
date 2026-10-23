@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { emailPattern, formResult, isSameOrigin, jsonError, readSubmission, stringField } from "@/lib/api";
-import { isMailchimpConfigured, requestNewsletterConfirmation } from "@/lib/mailchimp";
+import { isBrevoConfigured, requestNewsletterConfirmation, sendPilotSignupNotification } from "@/lib/brevo";
 import { getSupabase } from "@/lib/supabase";
 
 export const runtime = "nodejs";
@@ -27,8 +27,8 @@ export async function POST(request: NextRequest) {
   const supabase = getSupabase();
   if (!supabase) return respond("indisponible", 503, "L’inscription est momentanément indisponible. Réessayez plus tard.");
 
-  const mailchimpEnabled = isMailchimpConfigured();
-  const updatesOptIn = body.updates === true && mailchimpEnabled;
+  const brevoEnabled = isBrevoConfigured();
+  const updatesOptIn = body.updates === true && brevoEnabled;
   const consentAt = new Date().toISOString();
   const { error } = await supabase.from("pilot_signups").insert({
     artist_name: artistName,
@@ -42,13 +42,16 @@ export async function POST(request: NextRequest) {
   });
 
   // Keep the pilot request even if the address has already applied. A new explicit
-  // opt-in can still be sent to Mailchimp and confirmed there.
+  // opt-in can still be sent to Brevo and confirmed there.
   if (error?.code === "23505") {
     const newsletterStatus = updatesOptIn ? await requestNewsletterConfirmation(email) : "not_configured";
     return formResult(request, native, "/pilote", "envoye", 200, "", { newsletterStatus });
   }
   if (error) return respond("indisponible", 503, "L’inscription n’a pas pu être enregistrée. Réessayez plus tard.");
 
-  const newsletterStatus = updatesOptIn ? await requestNewsletterConfirmation(email) : "not_configured";
+  const [newsletterStatus] = await Promise.all([
+    updatesOptIn ? requestNewsletterConfirmation(email) : Promise.resolve("not_configured" as const),
+    sendPilotSignupNotification({ artistName, email }),
+  ]);
   return formResult(request, native, "/pilote", "envoye", 201, "", { newsletterStatus });
 }
