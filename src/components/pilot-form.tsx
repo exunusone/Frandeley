@@ -5,12 +5,18 @@ import Link from "next/link";
 
 type FormState = "idle" | "loading" | "success" | "error";
 
-export function PilotForm({ variant = "panel", serverStatus }: { variant?: "panel" | "standalone"; serverStatus?: string }) {
+export function PilotForm({ variant = "panel", serverStatus, newsletterEnabled = false, serverNewsletterStatus }: {
+  variant?: "panel" | "standalone";
+  serverStatus?: string;
+  newsletterEnabled?: boolean;
+  serverNewsletterStatus?: string;
+}) {
   const [state, setState] = useState<FormState>(serverStatus === "envoye" ? "success" : serverStatus ? "error" : "idle");
   const [message, setMessage] = useState(
     serverStatus === "invalide" ? "Vérifiez les champs requis et votre consentement." :
     serverStatus === "indisponible" ? "L’inscription est momentanément indisponible. Réessayez plus tard." : ""
   );
+  const [newsletterMessage, setNewsletterMessage] = useState(() => newsletterStatusMessage(serverNewsletterStatus));
   const [startedAt] = useState(() => Date.now());
 
   async function submit(event: FormEvent<HTMLFormElement>) {
@@ -37,6 +43,7 @@ export function PilotForm({ variant = "panel", serverStatus }: { variant?: "pane
       });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || "L’inscription n’a pas pu être enregistrée.");
+      setNewsletterMessage(newsletterStatusMessage(result.newsletterStatus));
       setState("success");
       form.reset();
     } catch (error) {
@@ -51,6 +58,7 @@ export function PilotForm({ variant = "panel", serverStatus }: { variant?: "pane
         <span className="success-mark" aria-hidden="true">✓</span>
         <h3>Votre intérêt est enregistré.</h3>
         <p>Merci. Votre inscription à la liste du pilote a bien été reçue. Nous vous recontacterons si votre profil correspond aux premiers tests.</p>
+        {newsletterMessage && <p className="newsletter-status" role="status">{newsletterMessage}</p>}
         <button className="text-link" onClick={() => setState("idle")} type="button">Inscrire un autre artiste <span aria-hidden="true">↗</span></button>
       </div>
     );
@@ -89,10 +97,14 @@ export function PilotForm({ variant = "panel", serverStatus }: { variant?: "pane
         <input id={`consent-${variant}`} type="checkbox" name="consent" required />
         <span className="check-copy"><label htmlFor={`consent-${variant}`}>J’accepte que Frandeley utilise ces informations pour gérer ma demande de participation conformément à sa politique de confidentialité.</label> <Link href="/confidentialite">Lire la politique de confidentialité</Link>. <b aria-hidden="true">*</b></span>
       </div>
-      <label className="check-row">
-        <input type="checkbox" name="updates" />
-        <span>Je souhaite recevoir des nouvelles du projet par e-mail. <em>Facultatif.</em></span>
-      </label>
+      {newsletterEnabled ? (
+        <label className="check-row">
+          <input type="checkbox" name="updates" />
+          <span>Je souhaite recevoir les nouvelles de Frandeley par e-mail. Cette option est facultative et distincte de ma demande au pilote.</span>
+        </label>
+      ) : (
+        <p className="newsletter-note">L’inscription aux nouvelles par e-mail sera proposée dès que l’envoi sera activé. Votre demande au pilote reste disponible.</p>
+      )}
       {state === "error" && <p className="form-error" role="alert">{message}</p>}
       <button className="button form-submit" type="submit" disabled={state === "loading"}>
         {state === "loading" ? "Enregistrement…" : "Rejoindre la liste du pilote"}
@@ -101,4 +113,12 @@ export function PilotForm({ variant = "panel", serverStatus }: { variant?: "pane
       <p className="form-note">Inscription gratuite, sans garantie de sélection. Aucun paiement demandé.</p>
     </form>
   );
+}
+
+function newsletterStatusMessage(status?: unknown) {
+  if (status === "pending") return "Un e-mail de confirmation Mailchimp va vous être envoyé. Confirmez votre adresse pour recevoir les nouvelles du projet.";
+  if (status === "subscribed") return "Votre demande est enregistrée et votre adresse reçoit déjà les nouvelles de Frandeley.";
+  if (status === "error") return "Votre demande au pilote est enregistrée, mais l’inscription aux nouvelles n’a pas abouti. Vous pourrez réessayer plus tard.";
+  if (status === "not_configured") return "Votre demande au pilote est enregistrée. L’inscription aux nouvelles par e-mail n’est pas encore activée.";
+  return "";
 }
