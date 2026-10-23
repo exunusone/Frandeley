@@ -121,7 +121,7 @@ export async function requestNewsletterConfirmation(email: string): Promise<News
     "Si vous n’avez pas fait cette demande, ignorez ce message.";
 
   const idempotencyKey = createHmac("sha256", deriveTokenKey(config.key))
-    .update("doi\0" + recipient + "\0" + expiresAt)
+    .update("doi\0" + recipient + "\0" + expiresAt + "\0" + link)
     .digest("hex");
 
   try {
