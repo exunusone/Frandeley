@@ -61,6 +61,34 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="film-section section-space" aria-labelledby="film-title">
+        <div className="shell film-grid">
+          <div className="film-copy" data-reveal>
+            <span className="eyebrow">Le fil d’un morceau · 20 secondes</span>
+            <h2 id="film-title">Une idée ne tient pas dans un seul fichier<span className="dot">.</span></h2>
+            <p>Une prise devient une démo, les retours font avancer le titre, puis l’artiste prépare la suite à son rythme. Cette vidéo résume l’intention que Frandeley veut explorer avec des artistes indépendants.</p>
+            <p className="film-note" id="film-description">Vidéo muette avec textes à l’écran et images d’illustration. Elle présente un concept en validation, pas une interface disponible.</p>
+            <Link className="text-link" href="/vision">Lire la vision complète <span aria-hidden="true">↗</span></Link>
+          </div>
+          <figure className="film-figure" data-reveal>
+            <div className="film-screen">
+              <video
+                controls
+                playsInline
+                preload="none"
+                poster="/images/artists-collaborating.webp"
+                aria-describedby="film-description"
+                aria-label="Film de présentation muet de Frandeley, d’une durée de 20 secondes"
+              >
+                <source src="/videos/frandeley-prelaunch-film.mp4" type="video/mp4" />
+                Votre navigateur ne peut pas lire cette vidéo. Le texte de présentation est disponible à côté.
+              </video>
+            </div>
+            <figcaption><span>20 s · sans son</span><span>Concept en validation</span></figcaption>
+          </figure>
+        </div>
+      </section>
+
       <section className="song-core-section section-space">
         <div className="shell">
           <div className="section-topline"><span>LE MORCEAU COMME DOSSIER VIVANT</span><span>CRÉER / RELIER / PRÉPARER</span></div>
@@ -113,6 +141,34 @@ export default function HomePage() {
           </ol>
         </div>
         <div className="shell research-disclaimer">Ce sont des questions de recherche, pas des fonctionnalités déjà disponibles.</div>
+      </section>
+
+      <section className="collaboration-section section-space" aria-labelledby="collaboration-title">
+        <div className="shell collaboration-grid">
+          <div className="collaboration-visual" data-reveal>
+            <Image
+              src="/images/artists-collaborating.webp"
+              alt="Une artiste, un guitariste et un producteur écoutent ensemble une prise en studio."
+              fill
+              sizes="(max-width: 850px) 100vw, 50vw"
+            />
+            <span className="collaboration-visual-label">UN MORCEAU, PLUSIEURS REGARDS</span>
+          </div>
+          <div className="collaboration-copy" data-reveal>
+            <span className="eyebrow">La musique se construit aussi à plusieurs</span>
+            <h2 id="collaboration-title">Les retours avancent le morceau. L’artiste garde la direction<span className="dot">.</span></h2>
+            <p>Un titre peut réunir des paroles, des idées, des prises et les savoir-faire de plusieurs personnes. Frandeley veut étudier comment garder les échanges près de la bonne version, sans imposer d’équipe ni de méthode de travail.</p>
+            <ul className="collaboration-roles" aria-label="Exemples de rôles autour d’un morceau">
+              <li>Artiste</li>
+              <li>Co-auteur·ice</li>
+              <li>Beatmaker</li>
+              <li>Ingénieur·e du son</li>
+              <li>Collaborateur·ice</li>
+            </ul>
+            <p className="concept-disclaimer">Ces rôles illustrent des situations possibles ; le pilote servira à vérifier les besoins réels.</p>
+            <Link className="text-link" href="/pilote">Partager votre façon de créer <span aria-hidden="true">↗</span></Link>
+          </div>
+        </div>
       </section>
 
       <section className="artist-control-section section-space">

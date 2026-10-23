@@ -25,6 +25,10 @@ Pour activer l'option :
 
 Mailchimp n'enverra une notification d'abonnement via l'intégration qu'après confirmation par la personne; cela ne signale pas les candidatures au pilote dont l'auteur n'a pas choisi les nouvelles par e-mail. Une notification distincte pour chaque candidature nécessite un canal transactionnel séparé.
 
+### Film de prélancement HyperFrames
+
+La page d'accueil comprend un film muet de 20 secondes, encodé en H.264 720p. Le projet source réutilisable se trouve dans `hyperframes/frandeley-film` : il contient cinq scènes, les transitions GSAP, les textes et les images locales. Pour vérifier et rendre le film, exécuter `npm run check` puis `npm run render` depuis ce dossier. Le clip servi par le site est `public/videos/frandeley-prelaunch-film.mp4`. Le film et la photo de collaboration illustrent un concept en validation, pas une interface déjà disponible.
+
 Le projet Supabase de prélancement est **frandeley-app** (`vhxglopbukdjxpnwgxir`, région `eu-west-1`). La migration `supabase/migrations/202610230001_prelaunch_forms.sql` y est appliquée : `pilot_signups` et `contact_messages` acceptent les écritures validées sans exposer les réponses en lecture publique. Ne réappliquez pas cette migration au même projet. Pour une autre base vierge, inspectez les tables avant de l'appliquer.
 
 ## Vérifications
