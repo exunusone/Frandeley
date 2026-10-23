@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 import { emailPattern, formResult, isSameOrigin, jsonError, readSubmission, stringField } from "@/lib/api";
-import { isBrevoConfigured, requestNewsletterConfirmation, sendPilotSignupNotification } from "@/lib/brevo";
-import { getSupabase } from "@/lib/supabase";
+import { isResendConfigured, requestNewsletterConfirmation, sendPilotSignupNotification } from "@/lib/resend";
+import { getSupabase, getSupabaseAdmin } from "@/lib/supabase";
 
 export const runtime = "nodejs";
 
@@ -27,8 +27,8 @@ export async function POST(request: NextRequest) {
   const supabase = getSupabase();
   if (!supabase) return respond("indisponible", 503, "L’inscription est momentanément indisponible. Réessayez plus tard.");
 
-  const brevoEnabled = isBrevoConfigured();
-  const updatesOptIn = body.updates === true && brevoEnabled;
+  const resendEnabled = isResendConfigured();
+  const updatesOptIn = body.updates === true && resendEnabled;
   const consentAt = new Date().toISOString();
   const { error } = await supabase.from("pilot_signups").insert({
     artist_name: artistName,
@@ -41,16 +41,28 @@ export async function POST(request: NextRequest) {
     source: "site",
   });
 
-  // Keep the pilot request even if the address has already applied. A new explicit
-  // opt-in can still be sent to Brevo and confirmed there.
+  // Keep the pilot request even if the address has already applied. A fresh explicit
+  // newsletter opt-in resets the confirmation timestamp before a new DOI email is sent.
   if (error?.code === "23505") {
-    const newsletterStatus = updatesOptIn ? await requestNewsletterConfirmation(email) : "not_configured";
+    let newsletterStatus: "pending" | "not_configured" | "error" = "not_configured";
+    if (updatesOptIn) {
+      const admin = getSupabaseAdmin();
+      if (!admin) {
+        newsletterStatus = "error";
+      } else {
+        const { error: optInError } = await admin
+          .from("pilot_signups")
+          .update({ updates_opt_in: true, updates_opt_in_at: consentAt, updates_confirmed_at: null })
+          .eq("email", email);
+        newsletterStatus = optInError ? "error" : await requestNewsletterConfirmation(email, consentAt);
+      }
+    }
     return formResult(request, native, "/pilote", "envoye", 200, "", { newsletterStatus });
   }
   if (error) return respond("indisponible", 503, "L’inscription n’a pas pu être enregistrée. Réessayez plus tard.");
 
   const [newsletterStatus] = await Promise.all([
-    updatesOptIn ? requestNewsletterConfirmation(email) : Promise.resolve("not_configured" as const),
+    updatesOptIn ? requestNewsletterConfirmation(email, consentAt) : Promise.resolve("not_configured" as const),
     sendPilotSignupNotification({ artistName, email }),
   ]);
   return formResult(request, native, "/pilote", "envoye", 201, "", { newsletterStatus });
