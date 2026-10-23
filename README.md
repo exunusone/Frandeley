@@ -19,7 +19,7 @@ La rubrique « Actualités FRANDELEY » a été créée dans Resend avec l’abo
 Pour activer les actualités en production :
 
 1. Ajouter à Resend un domaine détenu par Frandeley et terminer sa vérification DNS avant tout envoi public. Utiliser une adresse d’expéditeur sur ce domaine.
-2. Créer une clé API serveur dédiée. Le site envoie des e-mails et gère les contacts ainsi que leur abonnement à une rubrique ; la clé utilisée par le site doit donc autoriser ces opérations. Ne jamais la placer dans une variable `NEXT_PUBLIC_*` ni dans le dépôt.
+2. Créer une clé API serveur dédiée avec accès complet (`full_access`) : le site envoie des e-mails et gère les contacts ainsi que leur abonnement à une rubrique. La garder dans une variable serveur Vercel ; ne jamais la placer dans une variable `NEXT_PUBLIC_*` ni dans le dépôt.
 3. Ajouter `RESEND_API_KEY`, `RESEND_FROM_EMAIL` et l’identifiant de la rubrique `RESEND_NEWSLETTER_TOPIC_ID` dans l’environnement **Production** de Vercel. `RESEND_FROM_NAME` est facultatif.
 4. Vérifier que `NEXT_PUBLIC_SITE_URL` correspond à l’adresse publique actuelle, afin que le lien de confirmation renvoie vers le bon site.
 5. Redéployer. La case d’actualités n’apparaît que lorsque la clé, l’adresse d’expéditeur et l’identifiant de rubrique sont configurés.
