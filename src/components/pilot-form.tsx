@@ -59,6 +59,7 @@ export function PilotForm({ variant = "panel", serverStatus, newsletterEnabled =
         <h3>Votre intérêt est enregistré.</h3>
         <p>Merci. Votre inscription à la liste du pilote a bien été reçue. Nous vous recontacterons si votre profil correspond aux premiers tests.</p>
         {newsletterMessage && <p className="newsletter-status" role="status">{newsletterMessage}</p>}
+        <p className="success-next-step">Vous pouvez relire le <Link href="/parcours">parcours envisagé</Link> ou les <Link href="/faq">questions fréquentes</Link>.</p>
         <button className="text-link" onClick={() => setState("idle")} type="button">Inscrire un autre artiste <span aria-hidden="true">↗</span></button>
       </div>
     );

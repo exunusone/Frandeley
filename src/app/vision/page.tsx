@@ -3,7 +3,7 @@ import { InnerHero } from "@/components/inner-hero";
 import { SectionCta } from "@/components/section-cta";
 import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata = pageMetadata("La vision", "Frandeley explore un fil continu pour les artistes indépendants : de la première idée au morceau prêt à être partagé.", "/vision");
+export const metadata = pageMetadata("La vision", "Pourquoi Frandeley explore un fil continu entre création mobile, versions, collaboration et préparation de sortie pour les artistes indépendants.", "/vision");
 
 export default function VisionPage() {
   return (
@@ -37,6 +37,21 @@ export default function VisionPage() {
           </div>
         </div>
       </section>
+      <section className="vision-scope section-space" aria-labelledby="vision-scope-title">
+        <div className="shell">
+          <div className="section-topline"><span>LE NOYAU DU CONCEPT</span><span>CRÉER / RELIER / PRÉPARER</span></div>
+          <div className="section-heading-row" data-reveal>
+            <h2 id="vision-scope-title">Le morceau garde son histoire<span className="dot">.</span></h2>
+            <p>Le dossier vivant relierait la matière musicale, les personnes qui y contribuent et les éléments nécessaires à la suite.</p>
+          </div>
+          <div className="vision-scope-grid" data-reveal-stagger>
+            <article data-reveal><span>01 / MATIÈRE</span><h3>Les idées et les versions</h3><p>Prises, paroles, notes, arrangements et exports resteraient rattachés au même projet pour reprendre le travail avec son contexte.</p></article>
+            <article data-reveal><span>02 / COLLABORATION</span><h3>Les personnes et les décisions</h3><p>Les rôles, retours et validations pourraient suivre la version concernée. L’artiste choisirait les accès et confirmerait les crédits.</p></article>
+            <article data-reveal><span>03 / PRÉPARATION</span><h3>Les éléments de sortie</h3><p>Visuels, métadonnées, tâches et page artiste seraient préparés au même endroit, avec une publication décidée explicitement.</p></article>
+          </div>
+          <p className="concept-disclaimer">Ces éléments décrivent une direction à tester. Frandeley est encore en validation et aucune de ces fonctions n’est disponible sur le site.</p>
+        </div>
+      </section>
       <section className="split-feature">
         <div className="split-media"><Image src="/images/mobile-web.webp" alt="Projet musical visible sur téléphone et ordinateur" fill sizes="(max-width: 800px) 100vw, 50vw" /></div>
         <div className="split-copy" data-reveal>
@@ -44,6 +59,19 @@ export default function VisionPage() {
           <h2>Le même morceau,<br />deux bons moments<span className="dot">.</span></h2>
           <p>Le téléphone accueille la création spontanée. Le web aide à revoir les versions, coordonner les retours et préparer les éléments de sortie. La transition doit garder le contexte sans ressaisie.</p>
           <SectionCta label="Découvrir le parcours" href="/parcours" />
+        </div>
+      </section>
+      <section className="vision-boundaries section-space" aria-labelledby="vision-boundaries-title">
+        <div className="shell vision-boundaries-grid">
+          <div data-reveal>
+            <span className="eyebrow">Ce qui reste à décider</span>
+            <h2 id="vision-boundaries-title">Un cadre clair avant de construire<span className="dot">.</span></h2>
+          </div>
+          <div className="vision-boundaries-copy" data-reveal>
+            <p>Le premier parcours à éprouver va de la capture d’une idée à une démo retrouvée, partagée et préparée pour la suite. La distribution automatique et les outils audio avancés ne sont pas annoncés pour ce pilote.</p>
+            <p>La capture hors réseau, la collaboration, les exports et une éventuelle aide par IA doivent être évalués avec les artistes, selon leur qualité, leur coût et leur utilité réelle.</p>
+            <SectionCta label="Voir le parcours imaginé" href="/parcours" />
+          </div>
         </div>
       </section>
       <section className="text-cta section-space">

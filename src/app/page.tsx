@@ -5,6 +5,13 @@ import { PilotForm } from "@/components/pilot-form";
 import { SectionCta } from "@/components/section-cta";
 import { WaveRail } from "@/components/wave-rail";
 import { isMailchimpConfigured } from "@/lib/mailchimp";
+import { pageMetadata } from "@/lib/page-metadata";
+
+export const metadata = pageMetadata(
+  "Studio musical en préparation pour artistes indépendants",
+  "Découvrez Frandeley, un concept qui relie les prises, versions, retours et éléments de sortie d’un morceau. Inscrivez-vous pour contribuer au pilote.",
+  "/",
+);
 
 export default function HomePage() {
   return (
@@ -143,6 +150,22 @@ export default function HomePage() {
         <div className="shell research-disclaimer">Ce sont des questions de recherche, pas des fonctionnalités déjà disponibles.</div>
       </section>
 
+      <section className="pilot-signals-section section-space" aria-labelledby="pilot-signals-title">
+        <div className="shell">
+          <div className="section-topline"><span>À QUOI SERVIRA LE PILOTE ?</span><span>APPRENDRE SUR UN MORCEAU RÉEL</span></div>
+          <div className="section-heading-row" data-reveal>
+            <h2 id="pilot-signals-title">Vérifier l’utilité, étape par étape<span className="dot">.</span></h2>
+            <p>Nous voulons observer si le parcours imaginé aide vraiment les artistes, puis corriger ce qui ne fonctionne pas.</p>
+          </div>
+          <div className="pilot-signals-grid" data-reveal-stagger>
+            <article data-reveal><span>01 / RETROUVER</span><h3>Reprendre une idée</h3><p>Une première prise reste identifiable après une pause et son contexte est facile à retrouver.</p></article>
+            <article data-reveal><span>02 / PARTAGER</span><h3>Faire avancer la démo</h3><p>L’artiste peut choisir la bonne version et recueillir un retour compréhensible.</p></article>
+            <article data-reveal><span>03 / CONTINUER</span><h3>Revenir au projet</h3><p>Le morceau garde assez de continuité pour que l’artiste poursuive son travail à son rythme.</p></article>
+          </div>
+          <div className="pilot-signals-foot"><p>Ces repères sont des hypothèses à tester. Aucun résultat de pilote n’est encore disponible.</p><Link className="text-link" href="/parcours">Voir les étapes et repères proposés <span aria-hidden="true">↗</span></Link></div>
+        </div>
+      </section>
+
       <section className="collaboration-section section-space" aria-labelledby="collaboration-title">
         <div className="shell collaboration-grid">
           <div className="collaboration-visual" data-reveal>
@@ -207,8 +230,8 @@ export default function HomePage() {
             </div>
             <div className="signup-copy">
               <span className="eyebrow">Rejoignez le pilote Frandeley</span>
-              <h2>Faites partie des premiers artistes à l’essayer<span className="dot">.</span></h2>
-              <p>Nous préparons un pilote avec un groupe restreint d’artistes. Parlez-nous de votre pratique pour être informé des prochaines étapes.</p>
+              <h2>Contribuez aux premiers retours<span className="dot">.</span></h2>
+              <p>Nous préparons un pilote avec un groupe restreint d’artistes. Parlez-nous de votre pratique pour être informé des prochaines étapes. L’inscription ne garantit pas une place.</p>
               <PilotForm newsletterEnabled={isMailchimpConfigured()} />
             </div>
           </div>
