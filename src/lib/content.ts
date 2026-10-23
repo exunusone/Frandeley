@@ -111,7 +111,7 @@ export const faq = [
     category: "Vos données",
     question: "Mon adresse est-elle ajoutée à la newsletter ?",
     answer:
-      "Non, pas automatiquement. La case des nouvelles par e-mail est facultative et distincte de la demande au pilote. Si vous la cochez et que Brevo est activé, un e-mail de confirmation vous sera envoyé ; votre abonnement ne sera validé qu’après cette confirmation.",
+      "Non, pas automatiquement. La case des nouvelles par e-mail est facultative et distincte de la demande au pilote. Si vous la cochez et que Resend est activé, un e-mail de confirmation vous sera envoyé ; votre abonnement ne sera validé qu’après cette confirmation.",
   },
   {
     category: "Vos données",
