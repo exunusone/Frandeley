@@ -87,7 +87,7 @@ export function PilotForm({ variant = "panel", serverStatus }: { variant?: "pane
       </div>
       <div className="check-row">
         <input id={`consent-${variant}`} type="checkbox" name="consent" required />
-        <span className="check-copy"><label htmlFor={`consent-${variant}`}>J’accepte que Frandeley utilise ces informations pour gérer ma demande de participation, selon la </label><Link href="/confidentialite">politique de confidentialité</Link>. <b aria-hidden="true">*</b></span>
+        <span className="check-copy"><label htmlFor={`consent-${variant}`}>J’accepte que Frandeley utilise ces informations pour gérer ma demande de participation conformément à sa politique de confidentialité.</label> <Link href="/confidentialite">Lire la politique de confidentialité</Link>. <b aria-hidden="true">*</b></span>
       </div>
       <label className="check-row">
         <input type="checkbox" name="updates" />
