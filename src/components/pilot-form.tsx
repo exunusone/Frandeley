@@ -67,6 +67,7 @@ export function PilotForm({ variant = "panel", serverStatus, newsletterEnabled =
 
   return (
     <form className={`pilot-form ${variant}`} onSubmit={submit} method="post" action="/api/inscription" id={variant === "standalone" ? "formulaire" : undefined}>
+      {newsletterMessage && <p className="newsletter-status" role="status">{newsletterMessage}</p>}
       <div className="form-grid">
         <div className="field">
           <label htmlFor={`artistName-${variant}`}>Nom d’artiste <span aria-hidden="true">*</span></label>
@@ -117,8 +118,9 @@ export function PilotForm({ variant = "panel", serverStatus, newsletterEnabled =
 }
 
 function newsletterStatusMessage(status?: unknown) {
-  if (status === "pending") return "Un e-mail de confirmation Mailchimp va vous être envoyé. Confirmez votre adresse pour recevoir les nouvelles du projet.";
-  if (status === "subscribed") return "Votre demande est enregistrée et votre adresse reçoit déjà les nouvelles de Frandeley.";
+  if (status === "pending") return "Un e-mail de confirmation Brevo a été demandé. Cliquez sur le lien pour valider votre adresse et recevoir les nouvelles du projet.";
+  if (status === "confirmed") return "Votre adresse est confirmée. Vous recevrez les prochaines nouvelles de Frandeley.";
+  if (status === "subscribed") return "Votre adresse reçoit déjà les nouvelles de Frandeley.";
   if (status === "error") return "Votre demande au pilote est enregistrée, mais l’inscription aux nouvelles n’a pas abouti. Vous pourrez réessayer plus tard.";
   if (status === "not_configured") return "Votre demande au pilote est enregistrée. L’inscription aux nouvelles par e-mail n’est pas encore activée.";
   return "";
