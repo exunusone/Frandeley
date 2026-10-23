@@ -16,13 +16,13 @@ Renseigner `SUPABASE_URL` et `SUPABASE_PUBLISHABLE_KEY` dans `.env.local` et dan
 
 La case d’actualités est facultative et distincte de la demande au pilote. Seules les personnes qui la cochent sont inscrites au processus de confirmation des actualités dans Brevo. Le site lance le double opt-in : l’adresse n’est ajoutée à la liste d’actualités qu’après le clic sur le lien de confirmation.
 
-Le modèle actif de double confirmation **FRANDELEY — Confirmation actualités (double opt-in)** a été créé dans le compte Brevo (ID du template : `3`). Il utilise le lien `{{ params.DOIurl }}` requis par l’endpoint DOI.
+Le modèle actif **FRANDELEY — Confirmation actualités DOI** a été créé dans le compte Brevo (ID du template : `4`). Brevo le reconnaît comme modèle DOI (`doiTemplate: true`) et il utilise le lien `{{ params.DOIurl }}` requis par l’endpoint DOI. Le premier essai (ID `3`) reste actif dans le compte mais n’est pas reconnu comme DOI ; il n’est pas utilisé par le site.
 
 Pour activer les actualités :
 
 1. Créer une liste de contacts dédiée aux nouvelles FRANDELEY et récupérer son identifiant.
 2. Utiliser un expéditeur vérifié sur un domaine détenu par Frandeley. Configurer l’authentification du domaine avant tout envoi public.
-3. Ajouter `BREVO_API_KEY`, `BREVO_LIST_ID` et `BREVO_DOI_TEMPLATE_ID=3` dans l’environnement **Production** de Vercel. La clé reste côté serveur et ne doit jamais commencer par `NEXT_PUBLIC_` ni être ajoutée au dépôt.
+3. Ajouter `BREVO_API_KEY`, `BREVO_LIST_ID` et `BREVO_DOI_TEMPLATE_ID=4` dans l’environnement **Production** de Vercel. La clé reste côté serveur et ne doit jamais commencer par `NEXT_PUBLIC_` ni être ajoutée au dépôt.
 4. Vérifier que `NEXT_PUBLIC_SITE_URL` correspond à l’adresse publique actuelle, afin que le clic de confirmation ramène à `/pilote?newsletter=confirmed`.
 5. Redéployer le projet. La case d’actualités apparaît uniquement quand les trois variables serveur sont configurées.
 
