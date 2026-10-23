@@ -1,0 +1,24 @@
+<template id="scene-04-template">
+  <div data-composition-id="scene-04" data-width="1920" data-height="1080" class="scene scene--prepare">
+    <img class="scene-photo" src="../assets/notebook.webp" alt="" data-layout-allow-overflow />
+    <div class="scene-content">
+      <div class="scene-head">
+        <p class="scene-label">03 — Préparer</p>
+        <h2 class="scene-title">La suite se prépare<br />à votre rythme<span class="blue-period">.</span></h2>
+        <div class="scene-rule"></div>
+        <p class="scene-copy">Crédits, visuels, décisions : l’artiste choisit la suite.</p>
+      </div>
+      <div class="scene-meta"><span>UNE PUBLICATION TOUJOURS CHOISIE</span><span>04 / 05</span></div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.from("[data-composition-id='scene-04'] .scene-label", { opacity: 0, y: 19, duration: 0.37, ease: "power2.out" }, 0.08);
+      tl.from("[data-composition-id='scene-04'] .scene-title", { opacity: 0, x: 54, duration: 0.64, ease: "power4.out" }, 0.2);
+      tl.from("[data-composition-id='scene-04'] .scene-rule", { scaleX: 0, duration: 0.52, ease: "circ.out" }, 0.59);
+      tl.from("[data-composition-id='scene-04'] .scene-copy", { opacity: 0, y: 33, duration: 0.53, ease: "power3.out" }, 0.69);
+      tl.from("[data-composition-id='scene-04'] .scene-meta", { opacity: 0, x: -18, duration: 0.4, ease: "back.out(1.06)" }, 1.08);
+      window.__timelines["scene-04"] = tl;
+    </script>
+  </div>
+</template>

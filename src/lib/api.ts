@@ -49,9 +49,25 @@ export async function readSubmission(request: NextRequest): Promise<{ body: Reco
   return null;
 }
 
-export function formResult(request: NextRequest, native: boolean, path: string, status: "envoye" | "invalide" | "indisponible", code: number, message: string) {
-  if (native) return NextResponse.redirect(new URL(`${path}?status=${status}#formulaire`, request.url), 303);
-  return status === "envoye" ? NextResponse.json({ ok: true }, { status: code }) : jsonError(message, code);
+export function formResult(
+  request: NextRequest,
+  native: boolean,
+  path: string,
+  status: "envoye" | "invalide" | "indisponible",
+  code: number,
+  message: string,
+  data: Record<string, unknown> = {},
+) {
+  if (native) {
+    const url = new URL(path, request.url);
+    url.searchParams.set("status", status);
+    if (typeof data.newsletterStatus === "string") url.searchParams.set("newsletter", data.newsletterStatus);
+    url.hash = "formulaire";
+    return NextResponse.redirect(url, 303);
+  }
+  return status === "envoye"
+    ? NextResponse.json({ ok: true, ...data }, { status: code })
+    : jsonError(message, code);
 }
 
 export function stringField(body: Record<string, unknown>, key: string, limit: number) {

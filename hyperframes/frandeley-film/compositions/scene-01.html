@@ -1,0 +1,25 @@
+<template id="scene-01-template">
+  <div data-composition-id="scene-01" data-width="1920" data-height="1080" class="scene scene--hero">
+    <img class="scene-photo" src="../assets/hero-session.webp" alt="" data-layout-allow-overflow />
+    <div class="scene-content">
+      <div class="scene-head">
+        <p class="scene-label">La musique garde son histoire</p>
+        <h1 class="scene-title"><span>Une idée.</span><span>Un morceau.</span><span>La suite<span class="blue-period">.</span></span></h1>
+        <div class="scene-rule"></div>
+        <p class="scene-copy">Du premier mémo vocal aux décisions de sortie.</p>
+      </div>
+      <div class="scene-meta"><span>FRANDELEY <strong>·</strong> PRÉ-LANCEMENT</span><span>01 / 05</span></div>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.from("[data-composition-id='scene-01'] .scene-label", { opacity: 0, x: -26, duration: 0.38, ease: "expo.out" }, 0.08);
+      tl.from("[data-composition-id='scene-01'] .scene-title span", { opacity: 0, y: 44, duration: 0.56, stagger: 0.11, ease: "power3.out" }, 0.16);
+      tl.from("[data-composition-id='scene-01'] .scene-rule", { scaleX: 0, duration: 0.58, ease: "back.out(1.12)" }, 0.62);
+      tl.from("[data-composition-id='scene-01'] .scene-copy", { opacity: 0, y: 25, duration: 0.48, ease: "circ.out" }, 0.78);
+      tl.from("[data-composition-id='scene-01'] .scene-meta", { opacity: 0, y: 15, duration: 0.4, ease: "power2.out" }, 1.04);
+      tl.fromTo("[data-composition-id='scene-01'] .scene-photo", { scale: 1.035 }, { scale: 1, duration: 4.1, ease: "none" }, 0);
+      window.__timelines["scene-01"] = tl;
+    </script>
+  </div>
+</template>
