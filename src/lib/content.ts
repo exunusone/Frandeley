@@ -76,4 +76,19 @@ export const faq = [
     answer:
       "Le formulaire demande votre nom d’artiste, votre adresse e-mail et quelques informations facultatives sur votre pratique. Elles servent à organiser le pilote. Consultez la politique de confidentialité pour les détails et vos droits.",
   },
+  {
+    question: "Dois-je envoyer une maquette ou créer un compte ?",
+    answer:
+      "Non. Frandeley n’est pas encore disponible et ce site ne crée pas de compte ni ne reçoit de fichier audio. Le formulaire recueille uniquement les informations écrites qui y sont demandées. Ne transmettez pas de morceau inédit ou de document confidentiel.",
+  },
+  {
+    question: "Que se passe-t-il après mon inscription ?",
+    answer:
+      "Votre demande est enregistrée pour organiser les échanges du pilote. Si votre pratique correspond aux essais prévus, nous pourrons vous contacter. L’inscription ne garantit pas de place et aucun calendrier de sélection n’est annoncé.",
+  },
+  {
+    question: "Combien de temps gardez-vous mes informations ?",
+    answer:
+      "Les demandes au pilote et les messages de contact sont automatiquement supprimés de Supabase au plus tard 12 mois après leur envoi. Les nouvelles par e-mail sont facultatives et font l’objet d’un consentement distinct ; les détails figurent dans la politique de confidentialité.",
+  },
 ];
