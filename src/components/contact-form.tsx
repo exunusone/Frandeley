@@ -67,7 +67,7 @@ export function ContactForm({ serverStatus }: { serverStatus?: string }) {
       <div className="trap" aria-hidden="true"><label htmlFor="contact-website">Site web</label><input id="contact-website" name="website" tabIndex={-1} autoComplete="off" /></div>
       <div className="check-row">
         <input id="contact-consent" name="consent" type="checkbox" required />
-        <span className="check-copy"><label htmlFor="contact-consent">J’accepte que ces informations soient traitées pour répondre à ma demande, selon la </label><Link href="/confidentialite">politique de confidentialité</Link>. *</span>
+        <span className="check-copy"><label htmlFor="contact-consent">J’accepte que ces informations soient traitées pour répondre à ma demande conformément à la politique de confidentialité.</label> <Link href="/confidentialite">Lire la politique de confidentialité</Link>. *</span>
       </div>
       {state === "error" && <p className="form-error" role="alert">{error}</p>}
       <button type="submit" className="button form-submit" disabled={state === "loading"}>{state === "loading" ? "Envoi…" : "Envoyer le message"} <span aria-hidden="true">↗</span></button>
