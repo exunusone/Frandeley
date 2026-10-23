@@ -12,21 +12,19 @@ npm run dev
 
 Renseigner `SUPABASE_URL` et `SUPABASE_PUBLISHABLE_KEY` dans `.env.local` et dans l'environnement de l'hébergement. N'utiliser qu'une clé **publishable** pour les écritures publiques (jamais une clé secrète ou `service_role`). Les formulaires appellent les routes Next.js `/api/inscription` et `/api/contact`. Sans configuration, elles renvoient 503 et l'interface affiche une erreur explicite.
 
-### Brevo — actualités et alertes du pilote
+### Resend — actualités et alertes du pilote
 
-La case d’actualités est facultative et distincte de la demande au pilote. Seules les personnes qui la cochent sont inscrites au processus de confirmation des actualités dans Brevo. Le site lance le double opt-in : l’adresse n’est ajoutée à la liste d’actualités qu’après le clic sur le lien de confirmation.
+La rubrique « Actualités FRANDELEY » a été créée dans Resend avec l’abonnement désactivé par défaut. La case d’actualités reste facultative et distincte de la demande au pilote. Le site envoie un e-mail de confirmation uniquement si la personne coche cette case ; un clic supplémentaire sur une page du site confirme ensuite l’inscription. Le lien expire dans 24 à 48 heures, et l’adresse n’est ajoutée à la rubrique qu’après confirmation.
 
-Le modèle actif **FRANDELEY — Confirmation actualités DOI** a été créé dans le compte Brevo (ID du template : `4`). Brevo le reconnaît comme modèle DOI (`doiTemplate: true`) et il utilise le lien `{{ params.DOIurl }}` requis par l’endpoint DOI. Le premier essai (ID `3`) reste actif dans le compte mais n’est pas reconnu comme DOI ; il n’est pas utilisé par le site.
+Pour activer les actualités en production :
 
-Pour activer les actualités :
+1. Ajouter à Resend un domaine détenu par Frandeley et terminer sa vérification DNS avant tout envoi public. Utiliser une adresse d’expéditeur sur ce domaine.
+2. Créer une clé API serveur dédiée. Le site envoie des e-mails et gère les contacts ainsi que leur abonnement à une rubrique ; la clé utilisée par le site doit donc autoriser ces opérations. Ne jamais la placer dans une variable `NEXT_PUBLIC_*` ni dans le dépôt.
+3. Ajouter `RESEND_API_KEY`, `RESEND_FROM_EMAIL` et l’identifiant de la rubrique `RESEND_NEWSLETTER_TOPIC_ID` dans l’environnement **Production** de Vercel. `RESEND_FROM_NAME` est facultatif.
+4. Vérifier que `NEXT_PUBLIC_SITE_URL` correspond à l’adresse publique actuelle, afin que le lien de confirmation renvoie vers le bon site.
+5. Redéployer. La case d’actualités n’apparaît que lorsque la clé, l’adresse d’expéditeur et l’identifiant de rubrique sont configurés.
 
-1. Créer une liste de contacts dédiée aux nouvelles FRANDELEY et récupérer son identifiant.
-2. Utiliser un expéditeur vérifié sur un domaine détenu par Frandeley. Configurer l’authentification du domaine avant tout envoi public.
-3. Ajouter `BREVO_API_KEY`, `BREVO_LIST_ID` et `BREVO_DOI_TEMPLATE_ID=4` dans l’environnement **Production** de Vercel. La clé reste côté serveur et ne doit jamais commencer par `NEXT_PUBLIC_` ni être ajoutée au dépôt.
-4. Vérifier que `NEXT_PUBLIC_SITE_URL` correspond à l’adresse publique actuelle, afin que le clic de confirmation ramène à `/pilote?newsletter=confirmed`.
-5. Redéployer le projet. La case d’actualités apparaît uniquement quand les trois variables serveur sont configurées.
-
-En plus de ce processus, une notification transactionnelle séparée peut être activée avec `BREVO_API_KEY`, `BREVO_SENDER_EMAIL` (expéditeur vérifié), `BREVO_NOTIFICATION_EMAIL` (boîte qui reçoit les alertes) et, si besoin, `BREVO_SENDER_NAME`. Elle est envoyée après l’enregistrement d’une nouvelle demande pilote et contient uniquement le nom d’artiste et l’adresse e-mail. Une erreur de notification ne supprime pas la demande. Les messages de contact ne déclenchent pas cette alerte.
+Une notification transactionnelle séparée peut être activée avec `RESEND_API_KEY`, `RESEND_FROM_EMAIL` et `RESEND_NOTIFICATION_EMAIL`. Elle est envoyée après l’enregistrement d’une nouvelle demande pilote et contient le nom d’artiste et l’adresse e-mail. Une erreur de notification ne supprime pas la demande. Les messages de contact ne déclenchent pas cette alerte. Aucun e-mail d’essai ou de campagne n’est envoyé pendant la configuration.
 
 ### Film de prélancement HyperFrames
 
@@ -46,7 +44,7 @@ Les deux routes ont renvoyé 201 lors d'essais réels. Les écritures ont été 
 ## Points à finaliser pendant le prélancement
 
 - Les candidatures et messages sont supprimés de Supabase après 12 mois par un job `pg_cron` exécuté chaque jour à 03:15 UTC. Les personnes peuvent demander une suppression plus tôt.
-- Brevo n'est pas encore relié à l'environnement Vercel. Créer la liste dédiée, ajouter la clé API et l'identifiant de liste, puis configurer l'expéditeur vérifié et les variables de notification.
+- La rubrique Resend « Actualités FRANDELEY » est créée. L’envoi reste inactif jusqu’à la vérification d’un domaine d’expéditeur et à l’ajout de la clé API et de l’adresse d’expéditeur dans Vercel.
 - Les alertes internes du pilote restent inactives tant que l'adresse de notification et l'expéditeur vérifié ne sont pas configurés dans Vercel.
 - Compléter le statut, l'adresse postale et les coordonnées de l'éditeur dans les mentions légales. La fiche Vercel contient son adresse postale et son contact de confidentialité ; ses coordonnées exactes doivent être revérifiées avant publication des mentions.
 - `NEXT_PUBLIC_SITE_URL` vaut `https://frandeley-ten.vercel.app` par défaut. Définir cette variable dans Vercel si un domaine personnalisé remplace cette adresse. `robots.ts` autorise l'indexation en production et bloque les déploiements de prévisualisation.
