@@ -14,7 +14,7 @@ Typography: bold compact sans-serif, scale and line breaks match the concept's h
 ## Findings and comparison history
 
 1. **P0, form without client hydration (initial capture).** A pilot submission navigated with the entered e-mail in the URL, exposing it in browser history. Fix: added native POST actions and server redirects; the payload is now sent in the request body. The server route accepts both HTML form data and JSON. This fix passed type checking and production compilation. **Post-fix browser confirmation is blocked** by the cloud browser URL policy, so the design gate remains blocked.
-2. **P1, Supabase enrollment not verified.** The Frandeley project is listed, but all project-scoped Supabase calls return `You do not have permission to perform this action`. The migration has not been applied and the publishable key has not been configured. The forms display an unavailable state until then.
+2. **P1, Supabase enrollment resolved.** A new free `frandeley-app` project was created in the selected organization because the older Frandeley project was inaccessible. The two-table schema is applied with RLS. Both routes returned 201 in a local production server test; the rows were confirmed in Supabase and removed. Anonymous table reads returned 401. The production hosting environment still needs the URL and publishable key.
 3. **P2, mobile and post-fix form state not captured.** The browser rejected a subsequent navigation with a URL policy error. A native `<details>` mobile menu was implemented so navigation works without client hydration, but its mobile rendering was not observed.
 
 ## Checks
@@ -25,10 +25,11 @@ Typography: bold compact sans-serif, scale and line breaks match the concept's h
 - Page identity and framework overlay: intended pages rendered; no visible framework error overlay in the captured views.
 - TypeScript: passed.
 - Next.js production build: passed for all eight content routes and both API routes.
+- Supabase security advisor: no lint warnings after the final two-table schema.
 - Console errors: unavailable in the selected browser surface.
 
 ## Remaining work
 
-Restore authorized Supabase project access, inspect existing schema, apply and review the migration, configure the publishable URL/key, and test an end-to-end signup and contact message. Capture mobile and post-fix form states once browser access is restored. Complete legal identity/hosting fields and retention procedure before public launch.
+Set the URL and publishable key on the chosen hosting platform and verify the hosted forms. Capture mobile and post-fix form states once browser access is restored. Complete legal identity/hosting fields and retention procedure before public launch.
 
-final result: blocked
+final result: backend verified; browser visual gate blocked
