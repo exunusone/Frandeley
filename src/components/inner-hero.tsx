@@ -19,6 +19,7 @@ export function InnerHero({
       <div className="inner-shade" />
       <div className="shell inner-hero-content">
         <span className="eyebrow">{number} / FRANDELEY</span>
+        <span className="inner-hero-status"><span aria-hidden="true" /> Concept en validation</span>
         <h1>{title}</h1>
         <p>{description}</p>
       </div>

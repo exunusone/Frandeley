@@ -3,7 +3,7 @@ import { InnerHero } from "@/components/inner-hero";
 import { SectionCta } from "@/components/section-cta";
 import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata = pageMetadata("Le parcours du morceau", "Capturer, créer, écouter, préparer : découvrez les quatre moments que Frandeley souhaite tester avec les artistes.", "/parcours");
+export const metadata = pageMetadata("Le parcours du morceau", "Les quatre étapes du parcours Frandeley envisagé : capturer une idée, organiser les versions, recueillir des retours et préparer une sortie.", "/parcours");
 
 const chapters = [
   {
@@ -72,6 +72,21 @@ export default function ParcoursPage() {
           </div>
         </section>
       ))}
+      <section className="measurement-section section-space" aria-labelledby="measurement-title">
+        <div className="shell">
+          <div className="section-topline"><span>LES REPÈRES DU PILOTE</span><span>DES INDICATEURS À TESTER</span></div>
+          <div className="section-heading-row" data-reveal>
+            <h2 id="measurement-title">La continuité doit se voir dans l’usage<span className="dot">.</span></h2>
+            <p>Le parcours devra aider sur un morceau réel. Ces repères sont proposés pour orienter les essais, sans résultats annoncés.</p>
+          </div>
+          <div className="measurement-grid" data-reveal-stagger>
+            <article data-reveal><span>01 / ACTIVATION</span><h3>Retrouver une prise</h3><p>La première capture reste identifiable et peut être reprise après une interruption.</p></article>
+            <article data-reveal><span>02 / VALEUR</span><h3>Partager une démo</h3><p>Une version peut être exportée ou partagée sans reconstruire son contexte ailleurs.</p></article>
+            <article data-reveal><span>03 / RETOUR</span><h3>Revenir au morceau</h3><p>L’artiste reprend le projet plus tard et peut avancer vers un second morceau.</p></article>
+          </div>
+          <p className="concept-disclaimer">Le pilote devra aussi mesurer les blocages, le temps passé et les coûts variables liés aux médias et à une éventuelle IA.</p>
+        </div>
+      </section>
       <section className="text-cta section-space">
         <div className="shell" data-reveal>
           <span className="eyebrow">Votre pratique compte</span>

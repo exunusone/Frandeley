@@ -43,6 +43,7 @@ export function ContactForm({ serverStatus }: { serverStatus?: string }) {
       <span className="success-mark" aria-hidden="true">✓</span>
       <h2>Message reçu.</h2>
       <p>Merci de nous avoir écrit. Votre demande a été enregistrée.</p>
+      <p className="success-next-step">Pour les demandes concernant vos informations, retrouvez vos droits dans la <Link href="/confidentialite">politique de confidentialité</Link>.</p>
       <button type="button" className="text-link" onClick={() => setState("idle")}>Envoyer un autre message <span aria-hidden="true">↗</span></button>
     </div>
   );

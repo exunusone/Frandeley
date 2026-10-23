@@ -8,6 +8,7 @@ export function SiteFooter() {
         <div>
           <Brand />
           <p>Une idée. Un morceau. La suite.</p>
+          <Link className="footer-status" href="/faq"><span aria-hidden="true" />Concept en validation · Voir où en est le projet <span aria-hidden="true">↗</span></Link>
         </div>
         <div className="footer-links">
           <div>

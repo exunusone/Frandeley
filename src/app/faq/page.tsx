@@ -17,13 +17,18 @@ export default function FaqPage() {
       />
       <section className="section-space">
         <div className="shell faq-layout">
-          <div className="faq-intro"><span className="eyebrow">Questions fréquentes</span><h2>En toute clarté<span className="dot">.</span></h2><p>Frandeley est en préparation. Les détails du pilote évolueront avec les premiers retours. Les informations de conservation et l’option e-mail sont précisées dans la politique de confidentialité.</p></div>
+          <div className="faq-intro"><span className="eyebrow">Questions fréquentes</span><h2>En toute clarté<span className="dot">.</span></h2><p>Frandeley est un concept en validation. Les détails du pilote seront précisés avant tout essai. Les règles de conservation et l’option e-mail sont expliquées dans la politique de confidentialité.</p><Link className="text-link faq-privacy-link" href="/confidentialite">Lire la politique de confidentialité <span aria-hidden="true">↗</span></Link></div>
           <div className="faq-list">
-            {faq.map((item, index) => (
-              <details key={item.question} className="faq-item">
-                <summary><span>{String(index + 1).padStart(2, "0")}</span>{item.question}<b aria-hidden="true">+</b></summary>
-                <p>{item.answer}</p>
-              </details>
+            {(["Le concept", "Le pilote", "Vos données"] as const).map((category) => (
+              <section className="faq-group" key={category} aria-labelledby={`faq-${category.replaceAll(" ", "-").toLowerCase()}`}>
+                <h3 id={`faq-${category.replaceAll(" ", "-").toLowerCase()}`}>{category}</h3>
+                {faq.filter((item) => item.category === category).map((item, index) => (
+                  <details key={item.question} className="faq-item">
+                    <summary><span>{String(index + 1).padStart(2, "0")}</span>{item.question}<b aria-hidden="true">+</b></summary>
+                    <p>{item.answer}</p>
+                  </details>
+                ))}
+              </section>
             ))}
             <p className="faq-more">Une autre question ? <Link href="/contact">Écrivez-nous <span aria-hidden="true">↗</span></Link></p>
           </div>
