@@ -21,6 +21,14 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="prelaunch-note" aria-label="État du projet Frandeley">
+        <div className="shell prelaunch-note-inner">
+          <span className="prelaunch-status"><span aria-hidden="true" />Concept en validation</span>
+          <p><strong>Frandeley n’est pas encore disponible.</strong> Nous préparons un pilote avec des artistes ; l’inscription signale votre intérêt sans créer de compte.</p>
+          <Link href="/faq">Où en est le projet ? <span aria-hidden="true">↗</span></Link>
+        </div>
+      </section>
+
       <section className="feature-story">
         <Image src="/images/mobile-web.webp" alt="Téléphone et ordinateur montrant un projet musical organisé" fill sizes="100vw" className="feature-photo" />
         <div className="feature-shade" />
@@ -50,6 +58,32 @@ export default function HomePage() {
           </div>
           <Link className="text-link under-grid" href="/parcours">Explorer le parcours complet <span aria-hidden="true">↗</span></Link>
         </div>
+      </section>
+
+      <section className="research-section section-space">
+        <div className="shell research-panel">
+          <div className="research-lead" data-reveal>
+            <span className="eyebrow">Les questions du pilote</span>
+            <h2>Avant les outils,<br />écouter les artistes<span className="dot">.</span></h2>
+            <p>Frandeley part d’un parcours imaginé. Le pilote servira à comprendre ce qui aide vraiment — et ce qui mérite d’être repensé.</p>
+            <Link className="text-link" href="/pilote">Comprendre le pilote <span aria-hidden="true">↗</span></Link>
+          </div>
+          <ol className="research-list">
+            <li data-reveal>
+              <span>01</span>
+              <div><h3>Retrouver une idée</h3><p>Comment reprenez-vous une prise enregistrée sur téléphone quand le morceau avance ?</p></div>
+            </li>
+            <li data-reveal>
+              <span>02</span>
+              <div><h3>Partager la bonne version</h3><p>De quoi avez-vous besoin pour envoyer une démo et recevoir des retours utiles ?</p></div>
+            </li>
+            <li data-reveal>
+              <span>03</span>
+              <div><h3>Préparer la suite</h3><p>Quelles décisions et informations vous manquent avant de préparer une sortie ?</p></div>
+            </li>
+          </ol>
+        </div>
+        <div className="shell research-disclaimer">Ce sont des questions de recherche, pas des fonctionnalités déjà disponibles.</div>
       </section>
 
       <section className="notebook-section">
