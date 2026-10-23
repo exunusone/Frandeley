@@ -118,9 +118,10 @@ export function PilotForm({ variant = "panel", serverStatus, newsletterEnabled =
 }
 
 function newsletterStatusMessage(status?: unknown) {
-  if (status === "pending") return "Un e-mail de confirmation Brevo a été demandé. Cliquez sur le lien pour valider votre adresse et recevoir les nouvelles du projet.";
+  if (status === "pending") return "Un e-mail de confirmation Resend a été demandé. Cliquez sur le lien pour valider votre adresse et recevoir les nouvelles du projet.";
   if (status === "confirmed") return "Votre adresse est confirmée. Vous recevrez les prochaines nouvelles de Frandeley.";
   if (status === "subscribed") return "Votre adresse reçoit déjà les nouvelles de Frandeley.";
+  if (status === "expired") return "Le lien de confirmation a expiré. Cochez à nouveau l’option d’actualités lors d’une prochaine inscription pour recevoir un nouveau lien.";
   if (status === "error") return "Votre demande au pilote est enregistrée, mais l’inscription aux nouvelles n’a pas abouti. Vous pourrez réessayer plus tard.";
   if (status === "not_configured") return "Votre demande au pilote est enregistrée. L’inscription aux nouvelles par e-mail n’est pas encore activée.";
   return "";

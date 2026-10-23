@@ -4,7 +4,7 @@ import { steps } from "@/lib/content";
 import { PilotForm } from "@/components/pilot-form";
 import { SectionCta } from "@/components/section-cta";
 import { WaveRail } from "@/components/wave-rail";
-import { isBrevoNewsletterConfigured } from "@/lib/brevo";
+import { isResendNewsletterConfigured } from "@/lib/resend";
 import { pageMetadata } from "@/lib/page-metadata";
 
 export const metadata = pageMetadata(
@@ -232,7 +232,7 @@ export default function HomePage() {
               <span className="eyebrow">Rejoignez le pilote Frandeley</span>
               <h2>Contribuez aux premiers retours<span className="dot">.</span></h2>
               <p>Nous préparons un pilote avec un groupe restreint d’artistes. Parlez-nous de votre pratique pour être informé des prochaines étapes. L’inscription ne garantit pas une place.</p>
-              <PilotForm newsletterEnabled={isBrevoNewsletterConfigured()} />
+              <PilotForm newsletterEnabled={isResendNewsletterConfigured()} />
             </div>
           </div>
         </div>

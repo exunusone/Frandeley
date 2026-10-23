@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { emailPattern, formResult, isSameOrigin, jsonError, readSubmission, stringField } from "@/lib/api";
-import { isBrevoNewsletterConfigured, notifyPilotSignup, requestNewsletterConfirmation } from "@/lib/brevo";
+import { isResendNewsletterConfigured, notifyPilotSignup, requestNewsletterConfirmation } from "@/lib/resend";
 import { getSupabase } from "@/lib/supabase";
 
 export const runtime = "nodejs";
@@ -27,8 +27,8 @@ export async function POST(request: NextRequest) {
   const supabase = getSupabase();
   if (!supabase) return respond("indisponible", 503, "L’inscription est momentanément indisponible. Réessayez plus tard.");
 
-  const brevoNewsletterEnabled = isBrevoNewsletterConfigured();
-  const updatesOptIn = body.updates === true && brevoNewsletterEnabled;
+  const resendNewsletterEnabled = isResendNewsletterConfigured();
+  const updatesOptIn = body.updates === true && resendNewsletterEnabled;
   const consentAt = new Date().toISOString();
   const { error } = await supabase.from("pilot_signups").insert({
     artist_name: artistName,
@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
   });
 
   // Keep the pilot request even if the address has already applied. A fresh explicit
-  // opt-in can still trigger Brevo double confirmation.
+  // opt-in can still trigger Resend double opt-in.
   if (error?.code === "23505") {
     const newsletterStatus = body.updates === true ? await requestNewsletterConfirmation(email) : undefined;
     return formResult(request, native, "/pilote", "envoye", 200, "", { newsletterStatus });
