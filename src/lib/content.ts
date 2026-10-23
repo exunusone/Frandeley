@@ -111,7 +111,7 @@ export const faq = [
     category: "Vos données",
     question: "Mon adresse est-elle ajoutée à la newsletter ?",
     answer:
-      "Non, pas automatiquement. La case des nouvelles par e-mail est facultative et distincte de la demande au pilote. Si vous la cochez et que Mailchimp est activé, un e-mail de confirmation peut être nécessaire avant l’abonnement.",
+      "Non, pas automatiquement. La case des nouvelles par e-mail est facultative et distincte de la demande au pilote. Si vous la cochez, Brevo vous enverra un lien de confirmation avant l’inscription à la liste d’actualités.",
   },
   {
     category: "Vos données",
