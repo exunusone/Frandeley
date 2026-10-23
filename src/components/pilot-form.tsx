@@ -101,11 +101,12 @@ export function PilotForm({ variant = "panel", serverStatus, newsletterEnabled =
       {newsletterEnabled ? (
         <label className="check-row">
           <input type="checkbox" name="updates" />
-          <span>Je souhaite recevoir les nouvelles de Frandeley par e-mail. Cette option est facultative et distincte de ma demande au pilote.</span>
+          <span>Je souhaite recevoir les nouvelles de Frandeley par e-mail. Cette option est facultative, distincte de ma demande au pilote et nécessite une confirmation par e-mail.</span>
         </label>
       ) : (
         <p className="newsletter-note">L’inscription aux nouvelles par e-mail sera proposée dès que l’envoi sera activé. Votre demande au pilote reste disponible.</p>
       )}
+      {newsletterMessage && <p className="newsletter-status" role="status">{newsletterMessage}</p>}
       {state === "error" && <p className="form-error" role="alert">{message}</p>}
       <button className="button form-submit" type="submit" disabled={state === "loading"}>
         {state === "loading" ? "Enregistrement…" : "Rejoindre la liste du pilote"}
@@ -117,8 +118,8 @@ export function PilotForm({ variant = "panel", serverStatus, newsletterEnabled =
 }
 
 function newsletterStatusMessage(status?: unknown) {
-  if (status === "pending") return "Un e-mail de confirmation Mailchimp va vous être envoyé. Confirmez votre adresse pour recevoir les nouvelles du projet.";
-  if (status === "subscribed") return "Votre demande est enregistrée et votre adresse reçoit déjà les nouvelles de Frandeley.";
+  if (status === "pending") return "Un e-mail de confirmation Brevo va vous être envoyé. Confirmez votre adresse pour recevoir les nouvelles du projet.";
+  if (status === "confirmed") return "Votre inscription aux nouvelles de Frandeley est confirmée. Vous pourrez vous désabonner à tout moment depuis les e-mails reçus.";
   if (status === "error") return "Votre demande au pilote est enregistrée, mais l’inscription aux nouvelles n’a pas abouti. Vous pourrez réessayer plus tard.";
   if (status === "not_configured") return "Votre demande au pilote est enregistrée. L’inscription aux nouvelles par e-mail n’est pas encore activée.";
   return "";

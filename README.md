@@ -12,18 +12,23 @@ npm run dev
 
 Renseigner `SUPABASE_URL` et `SUPABASE_PUBLISHABLE_KEY` dans `.env.local` et dans l'environnement de l'hébergement. N'utiliser qu'une clé **publishable** pour les écritures publiques (jamais une clé secrète ou `service_role`). Les formulaires appellent les routes Next.js `/api/inscription` et `/api/contact`. Sans configuration, elles renvoient 503 et l'interface affiche une erreur explicite.
 
-### Mailchimp
+### Brevo
 
-La liste d'actualités est facultative et indépendante de la demande au pilote. Seules les personnes qui cochent cette option sont envoyées à Mailchimp, avec le statut `pending` afin qu'elles confirment leur adresse avant abonnement. La clé API est utilisée uniquement côté serveur.
+La liste des nouvelles est facultative et indépendante de la demande au pilote. Seules les personnes qui cochent cette option reçoivent un e-mail de double confirmation Brevo. Une notification transactionnelle distincte est envoyée à l'équipe pour chaque nouvelle demande au pilote ; elle ne dépend pas de la case newsletter et n'inscrit pas l'artiste à la liste.
 
-Pour activer l'option :
+Configuration préparée dans le compte Brevo relié : liste de contacts `2` (« Votre première liste ») et modèle DOI actif `2` (« Frandeley — confirmation des nouvelles (DOI) », tag `optin`). Le modèle contient le lien Brevo `{{ params.DOIurl }}` et redirige vers `/pilote?newsletter=confirmed` après confirmation.
 
-1. Créer ou choisir une audience Mailchimp et activer le **double opt-in** pour les inscriptions provenant de l'intégration.
-2. Dans les paramètres de cette audience, activer les notifications d'abonnement et indiquer l'adresse qui doit les recevoir.
-3. Ajouter `MAILCHIMP_API_KEY` et `MAILCHIMP_AUDIENCE_ID` dans les variables **Production** de Vercel. La clé API Mailchimp ne doit jamais commencer par `NEXT_PUBLIC_` ni être ajoutée au dépôt.
-4. Redéployer le projet. La case facultative ne s'affiche que lorsque les deux variables sont configurées.
+Variables serveur à renseigner dans **Vercel > Project Settings > Environment Variables** :
 
-Mailchimp n'enverra une notification d'abonnement via l'intégration qu'après confirmation par la personne; cela ne signale pas les candidatures au pilote dont l'auteur n'a pas choisi les nouvelles par e-mail. Une notification distincte pour chaque candidature nécessite un canal transactionnel séparé.
+- `BREVO_API_KEY` : clé API Brevo, type secret/encrypted, Production uniquement. Elle ne doit jamais commencer par `NEXT_PUBLIC_`, être stockée uniquement dans Supabase, ni être ajoutée au dépôt ; les routes du site tournent sur Vercel.
+- `BREVO_LIST_ID=2`
+- `BREVO_DOI_TEMPLATE_ID=2`
+- `BREVO_SENDER_EMAIL` : adresse de l'expéditeur vérifié dans Brevo.
+- `BREVO_SENDER_NAME=Frandeley`
+- `BREVO_NOTIFICATION_EMAIL` : boîte de réception des alertes de nouvelles demandes au pilote.
+- `NEXT_PUBLIC_SITE_URL=https://frandeley-ten.vercel.app` (si le domaine du site change, afin de générer le bon lien de confirmation).
+
+La case des nouvelles n'apparaît qu'une fois la clé, la liste et le modèle configurés. Les notifications d'inscription au pilote ne bloquent jamais l'enregistrement Supabase si l'envoi Brevo échoue.
 
 ### Film de prélancement HyperFrames
 
@@ -43,8 +48,8 @@ Les deux routes ont renvoyé 201 lors d'essais réels. Les écritures ont été 
 ## Points à finaliser pendant le prélancement
 
 - Les candidatures et messages sont supprimés de Supabase après 12 mois par un job `pg_cron` exécuté chaque jour à 03:15 UTC. Les personnes peuvent demander une suppression plus tôt.
-- Mailchimp n'est pas encore connecté à l'environnement Vercel : la liste d'actualités reste masquée jusqu'à l'ajout de la clé API et de l'identifiant d'audience. Les paramètres de double opt-in et l'adresse de notification doivent être activés dans l'audience Mailchimp.
-- Les inscriptions au pilote ne produisent pas de notification interne lorsque la case facultative Mailchimp n'est pas cochée. Un canal transactionnel séparé est nécessaire pour recevoir un e-mail pour chaque candidature.
+- Vérifier que `BREVO_API_KEY` est bien renseignée dans Vercel. Une clé configurée uniquement dans Supabase n'est pas automatiquement accessible aux routes Next.js hébergées par Vercel ; ajouter la variable serveur dans Vercel, puis redéployer.
+- Pour activer les alertes de candidatures, renseigner aussi `BREVO_NOTIFICATION_EMAIL` et l'adresse expéditeur vérifiée `BREVO_SENDER_EMAIL` dans Vercel.
 - Compléter le statut, l'adresse postale et les coordonnées de l'éditeur dans les mentions légales. La fiche Vercel contient son adresse postale et son contact de confidentialité ; ses coordonnées exactes doivent être revérifiées avant publication des mentions.
 - `NEXT_PUBLIC_SITE_URL` vaut `https://frandeley-ten.vercel.app` par défaut. Définir cette variable dans Vercel si un domaine personnalisé remplace cette adresse. `robots.ts` autorise l'indexation en production et bloque les déploiements de prévisualisation.
 - Les fonctions `/api/inscription` et `/api/contact` sont configurées dans la région Vercel Paris (`cdg1`) pour être proches des personnes visées et du stockage Supabase en Europe.
