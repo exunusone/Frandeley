@@ -9,7 +9,7 @@ export function WaveRail() {
     <div className="wave-rail" aria-hidden="true">
       <div className="wave-bars">
         {heights.map((height, index) => (
-          <span key={index} className={index % 4 === 1 ? "lit" : ""} style={{ height: `${height}%` }} />
+          <span key={index} className={index % 4 === 1 ? "lit" : ""} style={{ height: `${height}%`, animationDelay: `${(index % 9) * 70}ms` }} />
         ))}
       </div>
     </div>
