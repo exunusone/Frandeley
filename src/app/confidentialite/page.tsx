@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = { title: "Confidentialité", description: "Informations sur la collecte et l’utilisation des données personnelles sur le site Frandeley." };
+export const metadata = pageMetadata("Confidentialité", "Informations sur la collecte et l’utilisation des données personnelles sur le site Frandeley.", "/confidentialite");
 
 export default function PrivacyPage() {
   return (
@@ -19,13 +19,13 @@ export default function PrivacyPage() {
           <h2>Base légale et destinataires</h2>
           <p>Le traitement des inscriptions et messages repose sur votre consentement, donné en cochant la case correspondante. Les nouvelles du projet reposent sur un consentement séparé. Seules les personnes chargées du projet et les prestataires techniques nécessaires à l’hébergement et au stockage ont accès aux données selon leurs rôles.</p>
           <h2>Durée de conservation</h2>
-          <p>Les demandes d’inscription sont conservées jusqu’à la fin du recrutement du pilote, ou jusqu’au retrait de votre consentement. Les messages sont conservés pendant le temps nécessaire à leur traitement, puis supprimés. Une durée maximale chiffrée et sa procédure opérationnelle seront arrêtées avant l’ouverture publique.</p>
+          <p>Les demandes d’inscription sont prévues pour être conservées jusqu’à la fin du recrutement du pilote, ou jusqu’au retrait de votre consentement. Les messages sont prévus pour être conservés pendant leur traitement, puis supprimés. La durée maximale et le délai de suppression après clôture n’ont pas encore été fixés par le porteur du projet ; cette information doit être complétée.</p>
           <h2>Vos droits</h2>
           <p>Vous pouvez demander l’accès, la rectification, l’effacement et, selon votre situation, la limitation ou la portabilité de vos données, et retirer votre consentement à tout moment via le <Link href="/contact">formulaire de contact</Link>. Vous pouvez aussi déposer une réclamation auprès de la <a href="https://www.cnil.fr/" target="_blank" rel="noreferrer">CNIL</a>.</p>
           <h2>Hébergement et transferts</h2>
-          <p>Le stockage prévu utilise un projet Supabase situé dans l’Union européenne. Le choix de l’hébergeur du site et les éventuels transferts techniques doivent être vérifiés avant une ouverture publique ; cette page sera actualisée avec les informations définitives.</p>
+          <p>Les formulaires transitent par des fonctions hébergées sur Vercel, configurées dans la région de Paris (cdg1). Les données de formulaire sont stockées dans un projet Supabase situé dans l’Union européenne (eu-west-1, Irlande). Les prestataires peuvent aussi traiter des données techniques conformément à leurs propres services ; les éventuels transferts liés à ces traitements doivent être confirmés par le porteur du projet et détaillés ici.</p>
           <h2>Cookies</h2>
-          <p>Le site ne met pas en place de suivi publicitaire ou d’analyse d’audience. Les fonctions techniques strictement nécessaires peuvent utiliser des mécanismes de session selon l’hébergeur retenu.</p>
+          <p>Le site ne met pas en place de suivi publicitaire ou d’analyse d’audience. Il ne propose pas de compte utilisateur ; les prestataires peuvent traiter les données techniques nécessaires à la sécurité et au fonctionnement de l’hébergement.</p>
         </div>
       </div>
     </section>

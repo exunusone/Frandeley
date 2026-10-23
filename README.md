@@ -23,12 +23,13 @@ npm run build
 
 Les deux routes ont renvoyé 201 lors d'essais réels. Les écritures ont été constatées dans Supabase, puis les deux lignes de test supprimées. La lecture anonyme des deux tables renvoie 401. Aucun compte utilisateur ou produit musical n'est inclus : il s'agit seulement du site de prélancement.
 
-## Avant une ouverture publique
+## Points à finaliser pendant le prélancement
 
-- Vérifier le fonctionnement réel de l'enregistrement dans Supabase et les politiques RLS.
-- Ajouter un moyen de consulter et traiter les demandes reçues, ainsi qu'une procédure d'effacement et une durée maximale de conservation.
-- Compléter les coordonnées administratives de l'éditeur et de l'hébergeur dans les mentions légales et la politique de confidentialité.
-- Configurer `NEXT_PUBLIC_SITE_URL` avec l'URL définitive. `robots.ts` bloque volontairement l'indexation pendant la préparation.
-- Prévoir une protection anti-abus à l'échelle de l'hébergement avant d'ouvrir largement les formulaires. Le champ piège et la validation actuels ne remplacent pas cette mesure.
+- Les formulaires écrivent dans Supabase, mais aucun tableau de bord privé ni notification par e-mail n'est configuré. Prévoir un moyen sûr de lire, traiter et supprimer les demandes.
+- Définir puis appliquer une durée maximale de conservation pour la liste pilote et les messages de contact.
+- Compléter le statut, l'adresse postale et les coordonnées de l'éditeur dans les mentions légales. La fiche Vercel contient son adresse postale et son contact de confidentialité ; ses coordonnées exactes doivent être revérifiées avant publication des mentions.
+- `NEXT_PUBLIC_SITE_URL` vaut `https://frandeley-ten.vercel.app` par défaut. Définir cette variable dans Vercel si un domaine personnalisé remplace cette adresse. `robots.ts` autorise l'indexation en production et bloque les déploiements de prévisualisation.
+- Les fonctions `/api/inscription` et `/api/contact` sont configurées dans la région Vercel Paris (`cdg1`) pour être proches des personnes visées et du stockage Supabase en Europe.
+- Prévoir une limitation de débit anti-abus côté hébergement. Le champ piège et la validation actuels ne remplacent pas cette mesure.
 
 Les médias générés sont rangés dans `public/images` et le monogramme utilise l'image de marque fournie.

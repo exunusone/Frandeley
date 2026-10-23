@@ -1,12 +1,9 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { faq } from "@/lib/content";
 import { InnerHero } from "@/components/inner-hero";
+import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
-  title: "Questions fréquentes",
-  description: "Les réponses sur le pilote Frandeley, le stade du projet, les tarifs et la gestion de vos informations.",
-};
+export const metadata = pageMetadata("Questions fréquentes", "Les réponses sur le pilote Frandeley, le stade du projet, les tarifs et la gestion de vos informations.", "/faq");
 
 export default function FaqPage() {
   return (
