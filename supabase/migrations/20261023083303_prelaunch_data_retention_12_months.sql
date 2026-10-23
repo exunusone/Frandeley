@@ -1,5 +1,5 @@
 -- Automatically remove pre-launch applications and contact requests after 12 months.
--- Newsletter consent is optional; Brevo retains confirmed subscribers until they unsubscribe.
+-- Newsletter consent is optional; Resend retains confirmed subscribers until they unsubscribe.
 
 alter table public.pilot_signups
   add column if not exists updates_opt_in_at timestamptz;
