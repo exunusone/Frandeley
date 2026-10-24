@@ -10,7 +10,7 @@ export function getSupabase() {
   });
 }
 
-/** Service-role access is limited to server routes that must record newsletter confirmation. */
+/** Secret-key access stays in server routes for private, controlled database operations. */
 export function getSupabaseAdmin() {
   const url = process.env.SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SECRET_KEY;

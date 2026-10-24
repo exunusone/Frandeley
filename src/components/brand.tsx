@@ -1,15 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export function Brand({ compact = false }: { compact?: boolean }) {
+export function Brand() {
   return (
-    <Link href="/" className="brand" aria-label="Frandeley — accueil">
+    <Link href="/" className="brand" aria-label="Accueil Frandeley">
       <span className="brand-mark">
-        <Image src="/images/mark-source.webp" alt="" width={52} height={52} sizes="52px" />
-      </span>
-      <span className="brand-name">
-        FRANDELEY
-        {!compact && <small>MUSIC MEETS TOMORROW</small>}
+        <Image src="/images/frandeley-monogram.png" alt="" fill sizes="(max-width: 600px) 46px, 54px" />
       </span>
     </Link>
   );

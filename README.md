@@ -10,11 +10,24 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Renseigner `SUPABASE_URL` et `SUPABASE_PUBLISHABLE_KEY` dans `.env.local` et dans l'environnement de l'hébergement. N'utiliser qu'une clé **publishable** pour les écritures publiques (jamais une clé secrète ou `service_role`). Les formulaires appellent les routes Next.js `/api/inscription` et `/api/contact`. Sans configuration, elles renvoient 503 et l'interface affiche une erreur explicite.
+Renseigner `SUPABASE_URL` et `SUPABASE_PUBLISHABLE_KEY` dans `.env.local` et dans l'environnement de l'hébergement. La clé publishable sert aux écritures publiques des formulaires. Les routes privées qui protègent les opérations sensibles utilisent une clé serveur Supabase, jamais exposée au navigateur. Les formulaires appellent les routes Next.js `/api/inscription` et `/api/contact`. Sans configuration, elles renvoient 503 et l'interface affiche une erreur explicite.
 
 ### Ouverture des inscriptions au pilote
 
 Le formulaire de candidature est fermé par défaut pendant le pré-lancement sur les réseaux. Le site affiche une annonce à la place du formulaire et l'API refuse aussi les envois directs. Pour ouvrir les inscriptions après la première phase sociale, définir `PILOT_SIGNUPS_OPEN=true` dans Vercel puis redéployer. Garder `false` (ou ne pas définir la variable) pour les laisser fermées. Le formulaire de contact reste disponible.
+
+### Bouton « Je suis intéressé·e »
+
+Pendant que les candidatures par e-mail restent fermées, le site propose un bouton anonyme sur l'accueil et la page Pilote. Le compteur est stocké dans Supabase : un identifiant aléatoire par navigateur est transformé en empreinte côté serveur, une contrainte unique évite les doublons, et l'utilisateur peut annuler son choix depuis ce même navigateur. Les empreintes expirent après 12 mois. Le navigateur ne peut ni lire ni modifier directement les tables ; l'API Vercel vérifie d'abord le jeton à usage unique de Cloudflare Turnstile.
+
+Dans Cloudflare **Security → Turnstile**, créer un widget pour le domaine public Frandeley et ajouter aussi le domaine de prévisualisation Vercel si le bouton doit être testé sur les previews. Définir dans **Vercel → Project Settings → Environment Variables** :
+
+- `NEXT_PUBLIC_TURNSTILE_SITE_KEY` : clé publique Turnstile.
+- `TURNSTILE_SECRET_KEY` : clé privée Turnstile, côté serveur uniquement.
+- `SUPABASE_SERVICE_ROLE_KEY` (ou `SUPABASE_SECRET_KEY`) : clé serveur Supabase, jamais préfixée par `NEXT_PUBLIC_` et jamais committée.
+- `INTEREST_HASH_SECRET` : optionnelle ; secret stable d’au moins 32 caractères pour pseudonymiser les identifiants du navigateur. Si elle est absente, la clé serveur Supabase est utilisée.
+
+Le bouton reste désactivé tant que Turnstile ou la clé serveur Supabase ne sont pas configurés. Redéployer après avoir défini les variables `NEXT_PUBLIC_*` afin que le site charge la clé publique.
 
 ### Resend
 
@@ -37,7 +50,7 @@ La case des nouvelles n'apparaît qu'une fois les paramètres Resend configurés
 
 La page d'accueil comprend un film muet de 20 secondes, encodé en H.264 720p. Le projet source réutilisable se trouve dans `hyperframes/frandeley-film` : il contient cinq scènes, les transitions GSAP, les textes et les images locales. Pour vérifier et rendre le film, exécuter `npm run check` puis `npm run render` depuis ce dossier. Le clip servi par le site est `public/videos/frandeley-prelaunch-film.mp4`. Le film et la photo de collaboration illustrent un concept en validation, pas une interface déjà disponible.
 
-Le projet Supabase de prélancement est **frandeley-app** (`vhxglopbukdjxpnwgxir`, région `eu-west-1`). Les migrations de formulaires, de conservation et de double confirmation Resend y sont appliquées : `pilot_signups` et `contact_messages` acceptent les écritures validées sans exposer les réponses en lecture publique ; les jetons de confirmation restent privés au serveur. Ne réappliquez pas ces migrations au même projet.
+Le projet Supabase de prélancement est **frandeley-app** (`vhxglopbukdjxpnwgxir`, région `eu-west-1`). Les migrations de formulaires, de conservation et de double confirmation Resend y sont appliquées : `pilot_signups` et `contact_messages` acceptent les écritures validées sans exposer les réponses en lecture publique ; les jetons de confirmation restent privés au serveur. La migration du compteur d’intérêt ajoute un stockage séparé, accessible uniquement avec la clé serveur et nettoyé par le job quotidien de conservation.
 
 ## Vérifications
 

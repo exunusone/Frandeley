@@ -3,9 +3,10 @@ import { InnerHero } from "@/components/inner-hero";
 import { PilotForm } from "@/components/pilot-form";
 import { isResendConfigured } from "@/lib/resend";
 import { isPilotSignupOpen } from "@/lib/pilot-signup";
+import { isArtistInterestConfigured } from "@/lib/artist-interest";
 import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata = pageMetadata("Rejoindre le pilote", "Artiste indépendant avec un morceau en cours ? Découvrez qui peut contribuer au pilote Frandeley et laissez vos coordonnées.", "/pilote");
+export const metadata = pageMetadata("Rejoindre le pilote", "Artiste indépendant avec un morceau en cours ? Découvrez le pilote Frandeley et manifestez votre intérêt avant l’ouverture des inscriptions.", "/pilote");
 
 export default async function PilotePage({ searchParams }: { searchParams: Promise<{ status?: string; newsletter?: string }> }) {
   const { status, newsletter } = await searchParams;
@@ -60,11 +61,11 @@ export default async function PilotePage({ searchParams }: { searchParams: Promi
             <h2>{pilotSignupOpen ? <>Parlez-nous de votre musique<span className="dot">.</span></> : <>Les inscriptions ouvriront après le pré-lancement<span className="dot">.</span></>}</h2>
             <p>{pilotSignupOpen
               ? "Laissez vos coordonnées et quelques mots sur votre pratique. Nous pourrons vous recontacter si votre expérience correspond aux essais prévus. Aucun calendrier de sélection n’est annoncé à ce stade."
-              : "Nous présentons d’abord Frandeley sur les réseaux sociaux. Les inscriptions au pilote ouvriront après cette première phase. Pour l’instant, aucune demande n’est enregistrée."}</p>
-            <div className="pilot-aside"><span>01</span> Inscription gratuite<br /><span>02</span> Échanges si votre profil correspond<br /><span>03</span> Conditions présentées avant tout test</div>
-            <p className="pilot-aside-note">Les réponses facultatives nous aident à comprendre où vous en êtes. Vous pouvez aussi consulter la <Link href="/faq">FAQ</Link> ou poser une question depuis la page <Link href="/contact">Contact</Link>.</p>
+              : "Nous présentons d’abord Frandeley sur les réseaux sociaux. Les candidatures par e-mail ouvriront après cette première phase. En attendant, vous pouvez signaler votre intérêt sans communiquer votre adresse."}</p>
+            <div className="pilot-aside"><span>01</span> {pilotSignupOpen ? "Inscription gratuite" : "Intérêt sans e-mail"}<br /><span>02</span> Échanges si votre profil correspond<br /><span>03</span> Conditions présentées avant tout test</div>
+            <p className="pilot-aside-note">Vous pouvez consulter la <Link href="/faq">FAQ</Link> ou poser une question depuis la page <Link href="/contact">Contact</Link>.</p>
           </div>
-          <PilotForm variant="standalone" signupOpen={pilotSignupOpen} serverStatus={status} newsletterEnabled={pilotSignupOpen && isResendConfigured()} serverNewsletterStatus={newsletter} />
+          <PilotForm variant="standalone" signupOpen={pilotSignupOpen} interestEnabled={isArtistInterestConfigured()} serverStatus={status} newsletterEnabled={pilotSignupOpen && isResendConfigured()} serverNewsletterStatus={newsletter} />
         </div>
       </section>
     </>

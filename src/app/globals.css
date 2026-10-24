@@ -35,13 +35,10 @@ img { display: block; }
 .text-link:hover { color: #76a8ff; gap: 19px; }
 .muted { color: var(--quiet); }
 
-/* The supplied mark remains the original image. The filter maps its white ground
-   to black and the black mark to white; screen blend removes the dark ground. */
-.brand { display: inline-flex; align-items: center; gap: 13px; flex-shrink: 0; min-width: 0; }
-.brand-mark { width: 43px; height: 43px; overflow: hidden; display: block; position: relative; mix-blend-mode: screen; }
-.brand-mark img { width: 100%; height: 100%; object-fit: cover; filter: invert(1) hue-rotate(180deg) contrast(1.25); }
-.brand-name { display: flex; flex-direction: column; font-size: 1.15rem; line-height: 1.05; letter-spacing: .22em; font-weight: 800; white-space: nowrap; }
-.brand-name small { margin-top: 5px; color: #c8d1da; font-size: .39rem; letter-spacing: .36em; font-weight: 700; }
+/* The isolated transparent mark is recolored for contrast on the dark site chrome. */
+.brand { display: inline-flex; align-items: center; flex-shrink: 0; min-width: 0; }
+.brand-mark { width: 54px; height: 37px; display: block; position: relative; }
+.brand-mark img { object-fit: contain; filter: invert(1) hue-rotate(180deg) contrast(1.25); }
 .site-header { position: absolute; inset: 0 0 auto; z-index: 30; background: linear-gradient(#0306099c, transparent); }
 .header-inner { min-height: 82px; display: flex; align-items: center; gap: 30px; }
 .desktop-nav { display: flex; align-items: center; gap: 35px; margin-left: auto; }
@@ -172,6 +169,16 @@ img { display: block; }
 .form-closed { padding: 28px; border: 1px solid #294a5d; border-radius: 9px; background: #0d1b25; }
 .form-closed h3 { font-size: 1.35rem; letter-spacing: -.03em; margin: 16px 0 10px; }
 .form-closed p { color: var(--muted); line-height: 1.6; margin: 0 0 20px; }
+.artist-interest { margin: 22px 0; }
+.interest-button { width: 100%; min-height: 52px; justify-content: space-between; border-radius: 7px; }
+.interest-button:disabled { cursor: not-allowed; opacity: .58; transform: none; }
+.interest-count { margin: 13px 0 0 !important; color: #aab8c6 !important; font-size: .82rem; }
+.interest-count strong { color: #f4f8fc; font-size: 1.02rem; }
+.interest-feedback { margin: 12px 0 0 !important; color: #b8d2ff !important; font-size: .82rem; }
+.interest-feedback.is-error { color: #ffb9c2 !important; }
+.interest-note { margin: 12px 0 0 !important; color: #8e9dac !important; font-size: .72rem; line-height: 1.55 !important; }
+.interest-note a { color: #c0d5ff; text-decoration: underline; text-underline-offset: 3px; }
+.turnstile-widget { position: fixed; right: 16px; bottom: 16px; z-index: 80; }
 .form-success h3, .form-success h2 { font-size: 2rem; letter-spacing: -.04em; margin: 17px 0 12px; }
 .form-success p { color: var(--muted); line-height: 1.55; margin: 0 0 26px; }
 .success-mark { display: inline-grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: var(--blue); color: white; font-size: 1.4rem; }
@@ -297,7 +304,6 @@ img { display: block; }
   .shell { width: min(var(--shell), calc(100% - 68px)); }
   .desktop-nav { gap: 22px; }
   .header-cta { margin-left: 0; }
-  .brand-name { font-size: .95rem; }
   .feature-copy h2 { font-size: 4.3rem; }
 }
 @media (max-width: 850px) {
@@ -340,9 +346,7 @@ img { display: block; }
 }
 @media (max-width: 600px) {
   .shell { width: calc(100% - 40px); }
-  .brand-mark { width: 36px; height: 36px; }
-  .brand-name { font-size: .84rem; letter-spacing: .16em; }
-  .brand-name small { font-size: .32rem; letter-spacing: .22em; }
+  .brand-mark { width: 46px; height: 32px; }
   .hero { min-height: 680px; height: 92svh; max-height: 850px; }
   .hero-photo { object-position: 59% center; }
   .hero-shade { background: linear-gradient(0deg, #05090df6, #05090dac 49%, #05090d60), linear-gradient(90deg, #04080b91, transparent 75%); }

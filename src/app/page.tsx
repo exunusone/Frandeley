@@ -6,6 +6,7 @@ import { SectionCta } from "@/components/section-cta";
 import { WaveRail } from "@/components/wave-rail";
 import { isResendConfigured } from "@/lib/resend";
 import { isPilotSignupOpen } from "@/lib/pilot-signup";
+import { isArtistInterestConfigured } from "@/lib/artist-interest";
 import { pageMetadata } from "@/lib/page-metadata";
 
 export const metadata = pageMetadata(
@@ -34,7 +35,7 @@ export default function HomePage() {
       <section className="prelaunch-note" aria-label="État du projet Frandeley">
         <div className="shell prelaunch-note-inner">
           <span className="prelaunch-status"><span aria-hidden="true" />Concept en validation</span>
-          <p><strong>Frandeley n’est pas encore disponible.</strong> Nous préparons un pilote avec des artistes ; l’inscription signale votre intérêt sans créer de compte.</p>
+          <p><strong>Frandeley n’est pas encore disponible.</strong> Les candidatures au pilote sont fermées pendant la première phase sociale. Vous pouvez déjà manifester votre intérêt sans compte ni adresse e-mail.</p>
           <Link href="/faq">Où en est le projet ? <span aria-hidden="true">↗</span></Link>
         </div>
       </section>
@@ -235,8 +236,8 @@ export default function HomePage() {
               <h2>{pilotSignupOpen ? <>Contribuez aux premiers retours<span className="dot">.</span></> : <>Les inscriptions ouvriront après la première annonce<span className="dot">.</span></>}</h2>
               <p>{pilotSignupOpen
                 ? "Nous préparons un pilote avec un groupe restreint d’artistes. Parlez-nous de votre pratique pour être informé des prochaines étapes. L’inscription ne garantit pas une place."
-                : "Nous présentons d’abord Frandeley sur les réseaux sociaux. Le formulaire du pilote ouvrira après cette première phase. Aucune demande d’inscription n’est enregistrée pour le moment."}</p>
-              <PilotForm signupOpen={pilotSignupOpen} newsletterEnabled={pilotSignupOpen && isResendConfigured()} />
+                : "Nous présentons d’abord Frandeley sur les réseaux sociaux. Le formulaire d’inscription par e-mail ouvrira ensuite. D’ici là, vous pouvez manifester votre intérêt sans laisser vos coordonnées."}</p>
+              <PilotForm signupOpen={pilotSignupOpen} interestEnabled={isArtistInterestConfigured()} newsletterEnabled={pilotSignupOpen && isResendConfigured()} />
             </div>
           </div>
         </div>

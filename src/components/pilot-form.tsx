@@ -2,12 +2,14 @@
 
 import { FormEvent, useState } from "react";
 import Link from "next/link";
+import { ArtistInterest } from "@/components/artist-interest";
 
 type FormState = "idle" | "loading" | "success" | "error";
 
-export function PilotForm({ variant = "panel", signupOpen = false, serverStatus, newsletterEnabled = false, serverNewsletterStatus }: {
+export function PilotForm({ variant = "panel", signupOpen = false, interestEnabled = false, serverStatus, newsletterEnabled = false, serverNewsletterStatus }: {
   variant?: "panel" | "standalone";
   signupOpen?: boolean;
+  interestEnabled?: boolean;
   serverStatus?: string;
   newsletterEnabled?: boolean;
   serverNewsletterStatus?: string;
@@ -55,10 +57,11 @@ export function PilotForm({ variant = "panel", signupOpen = false, serverStatus,
 
   if (!signupOpen) {
     return (
-      <div className={`form-closed ${variant}`} role="status">
+      <div className={`form-closed ${variant}`}>
         <span className="success-mark" aria-hidden="true">Ⅱ</span>
-        <h3>Les inscriptions ne sont pas encore ouvertes.</h3>
-        <p>Nous lançons d’abord Frandeley sur les réseaux sociaux. Le formulaire du pilote sera activé après cette première phase. Aucune donnée ne sera envoyée avant l’ouverture.</p>
+        <h3>Les inscriptions par e-mail sont fermées.</h3>
+        <p>Nous présentons d’abord Frandeley sur les réseaux sociaux. En attendant l’ouverture du pilote, vous pouvez signaler votre intérêt sans laisser votre adresse e-mail.</p>
+        <ArtistInterest enabled={interestEnabled} variant={variant} />
         <Link className="text-link" href="/vision">Découvrir la vision Frandeley <span aria-hidden="true">↗</span></Link>
       </div>
     );
