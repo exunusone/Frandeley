@@ -2,12 +2,14 @@ import Link from "next/link";
 import { InnerHero } from "@/components/inner-hero";
 import { PilotForm } from "@/components/pilot-form";
 import { isResendConfigured } from "@/lib/resend";
+import { isPilotSignupOpen } from "@/lib/pilot-signup";
 import { pageMetadata } from "@/lib/page-metadata";
 
 export const metadata = pageMetadata("Rejoindre le pilote", "Artiste indépendant avec un morceau en cours ? Découvrez qui peut contribuer au pilote Frandeley et laissez vos coordonnées.", "/pilote");
 
 export default async function PilotePage({ searchParams }: { searchParams: Promise<{ status?: string; newsletter?: string }> }) {
   const { status, newsletter } = await searchParams;
+  const pilotSignupOpen = isPilotSignupOpen();
   return (
     <>
       <InnerHero
@@ -54,13 +56,15 @@ export default async function PilotePage({ searchParams }: { searchParams: Promi
       <section className="section-space" id="inscription">
         <div className="shell pilot-entry">
           <div className="pilot-entry-copy" data-reveal>
-            <span className="eyebrow">Inscription au pilote</span>
-            <h2>Parlez-nous de votre musique<span className="dot">.</span></h2>
-            <p>Laissez vos coordonnées et quelques mots sur votre pratique. Nous pourrons vous recontacter si votre expérience correspond aux essais prévus. Aucun calendrier de sélection n’est annoncé à ce stade.</p>
+            <span className="eyebrow">{pilotSignupOpen ? "Inscription au pilote" : "Pré-lancement en cours"}</span>
+            <h2>{pilotSignupOpen ? <>Parlez-nous de votre musique<span className="dot">.</span></> : <>Les inscriptions ouvriront après le pré-lancement<span className="dot">.</span></>}</h2>
+            <p>{pilotSignupOpen
+              ? "Laissez vos coordonnées et quelques mots sur votre pratique. Nous pourrons vous recontacter si votre expérience correspond aux essais prévus. Aucun calendrier de sélection n’est annoncé à ce stade."
+              : "Nous présentons d’abord Frandeley sur les réseaux sociaux. Les inscriptions au pilote ouvriront après cette première phase. Pour l’instant, aucune demande n’est enregistrée."}</p>
             <div className="pilot-aside"><span>01</span> Inscription gratuite<br /><span>02</span> Échanges si votre profil correspond<br /><span>03</span> Conditions présentées avant tout test</div>
             <p className="pilot-aside-note">Les réponses facultatives nous aident à comprendre où vous en êtes. Vous pouvez aussi consulter la <Link href="/faq">FAQ</Link> ou poser une question depuis la page <Link href="/contact">Contact</Link>.</p>
           </div>
-          <PilotForm variant="standalone" serverStatus={status} newsletterEnabled={isResendConfigured()} serverNewsletterStatus={newsletter} />
+          <PilotForm variant="standalone" signupOpen={pilotSignupOpen} serverStatus={status} newsletterEnabled={pilotSignupOpen && isResendConfigured()} serverNewsletterStatus={newsletter} />
         </div>
       </section>
     </>

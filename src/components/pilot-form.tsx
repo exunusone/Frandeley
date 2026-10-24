@@ -5,8 +5,9 @@ import Link from "next/link";
 
 type FormState = "idle" | "loading" | "success" | "error";
 
-export function PilotForm({ variant = "panel", serverStatus, newsletterEnabled = false, serverNewsletterStatus }: {
+export function PilotForm({ variant = "panel", signupOpen = false, serverStatus, newsletterEnabled = false, serverNewsletterStatus }: {
   variant?: "panel" | "standalone";
+  signupOpen?: boolean;
   serverStatus?: string;
   newsletterEnabled?: boolean;
   serverNewsletterStatus?: string;
@@ -50,6 +51,17 @@ export function PilotForm({ variant = "panel", serverStatus, newsletterEnabled =
       setState("error");
       setMessage(error instanceof Error ? error.message : "Une erreur est survenue.");
     }
+  }
+
+  if (!signupOpen) {
+    return (
+      <div className={`form-closed ${variant}`} role="status">
+        <span className="success-mark" aria-hidden="true">Ⅱ</span>
+        <h3>Les inscriptions ne sont pas encore ouvertes.</h3>
+        <p>Nous lançons d’abord Frandeley sur les réseaux sociaux. Le formulaire du pilote sera activé après cette première phase. Aucune donnée ne sera envoyée avant l’ouverture.</p>
+        <Link className="text-link" href="/vision">Découvrir la vision Frandeley <span aria-hidden="true">↗</span></Link>
+      </div>
+    );
   }
 
   if (state === "success") {

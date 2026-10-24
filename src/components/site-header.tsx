@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { Brand } from "./brand";
 import { navigation } from "@/lib/content";
+import { isPilotSignupOpen } from "@/lib/pilot-signup";
 
 export function SiteHeader() {
+  const ctaLabel = isPilotSignupOpen() ? "Rejoindre le pilote" : "Suivre le pré-lancement";
   return (
     <header className="site-header">
       <div className="header-inner shell">
@@ -11,13 +13,13 @@ export function SiteHeader() {
           {navigation.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
         </nav>
         <Link href="/pilote#inscription" className="button button-small header-cta">
-          Rejoindre le pilote <span aria-hidden="true">↗</span>
+          {ctaLabel} <span aria-hidden="true">↗</span>
         </Link>
         <details className="mobile-menu">
           <summary className="mobile-toggle">Menu</summary>
           <nav className="mobile-nav" aria-label="Navigation mobile">
             {navigation.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
-            <Link href="/pilote#inscription" className="button">Rejoindre le pilote <span aria-hidden="true">↗</span></Link>
+            <Link href="/pilote#inscription" className="button">{ctaLabel} <span aria-hidden="true">↗</span></Link>
           </nav>
         </details>
       </div>

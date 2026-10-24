@@ -1,5 +1,6 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { emailPattern, formResult, isSameOrigin, jsonError, readSubmission, stringField } from "@/lib/api";
+import { isPilotSignupOpen } from "@/lib/pilot-signup";
 import { isResendConfigured, requestNewsletterConfirmation, sendPilotSignupNotification } from "@/lib/resend";
 import { getSupabase, getSupabaseAdmin } from "@/lib/supabase";
 
@@ -7,6 +8,16 @@ export const runtime = "nodejs";
 
 export async function POST(request: NextRequest) {
   if (!isSameOrigin(request)) return jsonError("Origine de la demande invalide.", 403);
+  if (!isPilotSignupOpen()) {
+    const contentType = request.headers.get("content-type") || "";
+    const native = contentType.startsWith("application/x-www-form-urlencoded") || contentType.startsWith("multipart/form-data");
+    if (native) {
+      const closedUrl = new URL("/pilote?status=ferme", request.url);
+      closedUrl.hash = "inscription";
+      return NextResponse.redirect(closedUrl, 303);
+    }
+    return jsonError("Les inscriptions ouvriront après la première phase de pré-lancement sur les réseaux sociaux.", 403);
+  }
   const submission = await readSubmission(request);
   if (!submission) return jsonError("Données du formulaire invalides.", 400);
   const { body, native } = submission;

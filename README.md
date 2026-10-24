@@ -12,6 +12,10 @@ npm run dev
 
 Renseigner `SUPABASE_URL` et `SUPABASE_PUBLISHABLE_KEY` dans `.env.local` et dans l'environnement de l'hébergement. N'utiliser qu'une clé **publishable** pour les écritures publiques (jamais une clé secrète ou `service_role`). Les formulaires appellent les routes Next.js `/api/inscription` et `/api/contact`. Sans configuration, elles renvoient 503 et l'interface affiche une erreur explicite.
 
+### Ouverture des inscriptions au pilote
+
+Le formulaire de candidature est fermé par défaut pendant le pré-lancement sur les réseaux. Le site affiche une annonce à la place du formulaire et l'API refuse aussi les envois directs. Pour ouvrir les inscriptions après la première phase sociale, définir `PILOT_SIGNUPS_OPEN=true` dans Vercel puis redéployer. Garder `false` (ou ne pas définir la variable) pour les laisser fermées. Le formulaire de contact reste disponible.
+
 ### Resend
 
 La liste des nouvelles est facultative et indépendante de la demande au pilote. Seules les personnes qui cochent cette option reçoivent un e-mail de double confirmation ; leur adresse est ajoutée au sujet Resend des actualités après leur clic de confirmation. Une notification transactionnelle distincte est envoyée à l'équipe pour chaque nouvelle demande au pilote ; elle ne dépend pas de la case newsletter et n'inscrit pas l'artiste à la liste.

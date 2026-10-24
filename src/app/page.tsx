@@ -5,6 +5,7 @@ import { PilotForm } from "@/components/pilot-form";
 import { SectionCta } from "@/components/section-cta";
 import { WaveRail } from "@/components/wave-rail";
 import { isResendConfigured } from "@/lib/resend";
+import { isPilotSignupOpen } from "@/lib/pilot-signup";
 import { pageMetadata } from "@/lib/page-metadata";
 
 export const metadata = pageMetadata(
@@ -14,6 +15,7 @@ export const metadata = pageMetadata(
 );
 
 export default function HomePage() {
+  const pilotSignupOpen = isPilotSignupOpen();
   return (
     <>
       <section className="hero">
@@ -22,7 +24,7 @@ export default function HomePage() {
         <div className="shell hero-content">
           <h1>Une idée.<br />Un morceau.<br />La suite<span className="dot">.</span></h1>
           <p>Le même projet, du premier enregistrement sur votre téléphone jusqu’à la démo et à la sortie préparée.</p>
-          <SectionCta />
+          <SectionCta label={pilotSignupOpen ? "Rejoindre le pilote" : "Suivre le pré-lancement"} />
         </div>
         <div className="shell hero-bottom">
           <WaveRail />
@@ -229,10 +231,12 @@ export default function HomePage() {
               <span>La suite s’écrit avec les artistes.</span>
             </div>
             <div className="signup-copy">
-              <span className="eyebrow">Rejoignez le pilote Frandeley</span>
-              <h2>Contribuez aux premiers retours<span className="dot">.</span></h2>
-              <p>Nous préparons un pilote avec un groupe restreint d’artistes. Parlez-nous de votre pratique pour être informé des prochaines étapes. L’inscription ne garantit pas une place.</p>
-              <PilotForm newsletterEnabled={isResendConfigured()} />
+              <span className="eyebrow">{pilotSignupOpen ? "Rejoignez le pilote Frandeley" : "Pré-lancement sur les réseaux"}</span>
+              <h2>{pilotSignupOpen ? <>Contribuez aux premiers retours<span className="dot">.</span></> : <>Les inscriptions ouvriront après la première annonce<span className="dot">.</span></>}</h2>
+              <p>{pilotSignupOpen
+                ? "Nous préparons un pilote avec un groupe restreint d’artistes. Parlez-nous de votre pratique pour être informé des prochaines étapes. L’inscription ne garantit pas une place."
+                : "Nous présentons d’abord Frandeley sur les réseaux sociaux. Le formulaire du pilote ouvrira après cette première phase. Aucune demande d’inscription n’est enregistrée pour le moment."}</p>
+              <PilotForm signupOpen={pilotSignupOpen} newsletterEnabled={pilotSignupOpen && isResendConfigured()} />
             </div>
           </div>
         </div>
