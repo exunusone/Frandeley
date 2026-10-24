@@ -6,7 +6,7 @@ export function SiteFooter() {
     <footer className="site-footer">
       <div className="shell footer-main">
         <div>
-          <Brand />
+          <Brand tone="on-dark" />
           <p>Une idée. Un morceau. La suite.</p>
           <Link className="footer-status" href="/faq"><span aria-hidden="true" />Concept en validation · Voir où en est le projet <span aria-hidden="true">↗</span></Link>
         </div>

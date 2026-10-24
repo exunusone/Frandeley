@@ -38,7 +38,7 @@ img { display: block; }
 /* The isolated transparent mark is recolored for contrast on the dark site chrome. */
 .brand { display: inline-flex; align-items: center; flex-shrink: 0; min-width: 0; }
 .brand-mark { width: 54px; height: 37px; display: block; position: relative; }
-.brand-mark img { object-fit: contain; filter: invert(1) hue-rotate(180deg) contrast(1.25); }
+.brand-mark img { object-fit: contain; }
 .site-header { position: absolute; inset: 0 0 auto; z-index: 30; background: linear-gradient(#0306099c, transparent); }
 .header-inner { min-height: 82px; display: flex; align-items: center; gap: 30px; }
 .desktop-nav { display: flex; align-items: center; gap: 35px; margin-left: auto; }

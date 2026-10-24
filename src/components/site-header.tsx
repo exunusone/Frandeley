@@ -8,7 +8,7 @@ export function SiteHeader() {
   return (
     <header className="site-header">
       <div className="header-inner shell">
-        <Brand />
+        <Brand tone="on-dark" />
         <nav className="desktop-nav" aria-label="Navigation principale">
           {navigation.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
         </nav>
